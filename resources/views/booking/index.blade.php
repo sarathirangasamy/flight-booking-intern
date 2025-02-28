@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <th>Flight Name</th>
+                    <th>Date</th>
                     <th>Departure</th>
                     <th>Arrival</th>
                     <th>Status</th>
@@ -20,9 +21,18 @@
                 @foreach($bookings as $booking)
                     <tr>
                         <td>{{ $booking->flight_name }}</td>
+                        <td>{{ $booking->date }}</td>
                         <td>{{ $booking->departure_time }}</td>
                         <td>{{ $booking->arrival_time }}</td>
-                        <td>{{ $booking->status }}</td>
+                        <td>
+                        <span class="badge 
+                        {{ $booking->status == 'pending' ? 'bg-warning' : '' }} 
+                        {{ $booking->status == 'Confirmed' ? 'bg-success' : '' }} 
+                        {{ $booking->status == 'Cancelled' ? 'bg-danger' : '' }}">
+                        {{ $booking->status }}
+                    </span>
+
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

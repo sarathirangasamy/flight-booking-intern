@@ -17,34 +17,42 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                @auth
-                    <li class="nav-item">
-                    <a class="nav-link" href="{{ route('booking.index') }}">My Bookings</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            {{ Auth::user()->name }} 
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="dropdown-item" href="#" 
-                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    Logout
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">Register</a>
-                    </li>
-                @endauth
+            @auth
+        @if(Auth::user()->role === 'admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+            </li>
+
+            @else
+            <li class="nav-item">
+            <a class="nav-link" href="{{ route('booking.index') }}">My Bookings</a>
+        </li>
+        @endif
+    
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+            {{ Auth::user()->name }} 
+        </a>
+        <ul class="dropdown-menu">
+            <li>
+                <a class="dropdown-item" href="#" 
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </li>
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+@else
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('login') }}">Login</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('register') }}">Register</a>
+    </li>
+@endauth
             </ul>
         </div>
     </div>

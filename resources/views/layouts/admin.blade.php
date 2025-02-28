@@ -7,35 +7,92 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Sidebar styles */
+        #wrapper {
+            display: flex;
+        }
+        #sidebar-wrapper {
+            width: 250px;
+            min-height: 100vh;
+            background: #343a40;
+            color: white;
+            transition: all 0.3s ease-in-out;
+        }
+        #sidebar-wrapper .list-group-item {
+            background: #343a40;
+            color: white;
+            border: none;
+        }
+        #sidebar-wrapper .list-group-item:hover {
+            background: #495057;
+        }
+        #page-content-wrapper {
+            flex-grow: 1;
+            transition: all 0.3s ease-in-out;
+        }
+        /* Toggle behavior */
+        .toggled #sidebar-wrapper {
+            margin-left: -250px;
+        }
+        .toggled #page-content-wrapper {
+            margin-left: 0;
+        }
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: -250px;
+                position: absolute;
+                z-index: 1000;
+            }
+            .toggled #sidebar-wrapper {
+                margin-left: 0;
+            }
+        }
+
+        hr {
+            margin: 0;
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Sidebar -->
     <div class="d-flex" id="wrapper">
-        <div class="bg-dark border-right text-white" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-4 fs-4 fw-bold text-uppercase">
+        <!-- Sidebar -->
+        <div class="border-right" id="sidebar-wrapper">
+            <div class="sidebar-heading text-center py-2 fs-6 fw-bold text-uppercase">
                 <i class="fas fa-user-shield"></i> Admin Panel
             </div>
             <div class="list-group list-group-flush">
-                <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
-                </a>
-                <a href="{{ route('admin.bookings') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                <a href="{{ route('admin.bookings') }}" class="list-group-item list-group-item-action">
                     <i class="fas fa-plane"></i> Bookings
                 </a>
-                <a href="{{ route('admin.users') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                <hr>
+
+                <a href="{{ route('admin.users') }}" class="list-group-item list-group-item-action">
                     <i class="fas fa-users"></i> Users
                 </a>
-                <a href="{{ route('logout') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                <hr>
+
+                <a href="{{ route('logout') }}" class="dropdown-item list-group-item list-group-item-action" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
+         
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+    
             </div>
+
         </div>
 
         <!-- Page Content -->
         <div id="page-content-wrapper" class="w-100">
             <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-                <button class="btn btn-primary" id="menu-toggle"><i class="fas fa-bars"></i></button>
                 <span class="ms-auto me-3">Welcome, Admin</span>
             </nav>
 
@@ -45,30 +102,14 @@
         </div>
     </div>
 
+    <!-- JavaScript for Sidebar Toggle -->
     <script>
         document.getElementById("menu-toggle").addEventListener("click", function() {
             document.getElementById("wrapper").classList.toggle("toggled");
         });
     </script>
 
-    <style>
-        #wrapper {
-            display: flex;
-        }
-        #sidebar-wrapper {
-            min-width: 250px;
-            max-width: 250px;
-            height: 100vh;
-            position: fixed;
-        }
-        #page-content-wrapper {
-            margin-left: 250px;
-            flex-grow: 1;
-        }
-        .toggled #sidebar-wrapper {
-            margin-left: -250px;
-        }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

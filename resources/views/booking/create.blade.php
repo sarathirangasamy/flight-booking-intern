@@ -12,16 +12,24 @@
         @csrf
         <div class="mb-3">
             <label for="flight_name" class="form-label">Flight Name</label>
-            <input type="text" class="form-control" id="flight_name" name="flight_name" required>
+            <input type="text" class="form-control" id="flight_name" name="flight_name">
         </div>
         <div class="mb-3">
-            <label for="status" class="form-label">Booking Status</label>
-            <select class="form-control" id="status" name="status">
-                <option value="Pending">Pending</option>
-                <option value="Confirmed">Confirmed</option>
-                <option value="Cancelled">Cancelled</option>
-            </select>
+            <label>Date</label>
+            <input type="date" name="date" class="form-control">
         </div>
+        <div class="mb-3">
+            <label>Departure Time</label>
+            <input type="time" name="departure_time" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Arrival Time</label>
+            <input type="time" name="arrival_time" class="form-control">
+        </div>
+
+        
+
         <button type="submit" class="btn btn-primary">Book Now</button>
     </form>
 </div>

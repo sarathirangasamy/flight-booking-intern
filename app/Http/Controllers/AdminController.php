@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -12,7 +13,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $bookings = Booking::all();
+        return view('admin.bookings', compact('bookings'));
     }
 
     /**
@@ -70,5 +72,21 @@ class AdminController extends Controller
     {
         $bookings = Booking::all();
         return view('admin.dashboard', compact('bookings'));
+    }
+    
+
+    public function users()
+    {
+        $users = User::where('role', '!=', 'admin')->get();
+        return view('admin.users', compact('users'));
+    }
+
+    public function updateBookingStatus(Request $request, $id)
+    {
+        $booking = Booking::findOrFail($id);
+        $booking->status = $request->status;
+        $booking->save();
+    
+        return redirect()->route('admin.dashboard')->with('success', 'Booking status updated successfully!');
     }
 }

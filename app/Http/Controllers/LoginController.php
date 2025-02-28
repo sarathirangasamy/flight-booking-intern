@@ -19,11 +19,17 @@ class LoginController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
+    
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+    
             return redirect()->route('home');
         }
-
+    
         return back()->withErrors(['email' => 'Invalid credentials.']);
     }
 

@@ -30,19 +30,22 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'flight_name' => 'required|string|max:255',
-            'departure_date' => 'required|date',
-        ]);
+        // $request->validate([
+        //     'flight_name' => 'required|string|max:255',
+        //     'departure_date' => 'required|date',
+        // ]);
 
         Booking::create([
             'user_id' => Auth::id(),
             'flight_name' => $request->flight_name,
-            'departure_date' => $request->departure_date,
+            'flight_name' => $request->flight_name,
+            'departure_time' => $request->departure_time,
+            'arrival_time' => $request->arrival_time,
+            'date' => $request->date,
             'status' => 'pending'
         ]);
 
-        return redirect()->route('booking')->with('success', 'Booking created successfully!');
+        return redirect()->route('home')->with('success', 'Booking created successfully!');
     }
 
     /**

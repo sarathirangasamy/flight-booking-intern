@@ -16,6 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Reference to users table
             $table->string('flight_name');
             $table->string('status')->default('pending');
+            $table->time('departure_time')->nullable(); 
+            $table->time('arrival_time')->nullable(); 
+            $table->date('date')->nullable();   
             $table->timestamps();
         });
     }
