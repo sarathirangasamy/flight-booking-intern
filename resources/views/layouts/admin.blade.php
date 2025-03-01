@@ -64,10 +64,16 @@
     <div class="d-flex" id="wrapper">
         <!-- Sidebar -->
         <div class="border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading text-center py-2 fs-6 fw-bold text-uppercase">
+            <div  class="sidebar-heading text-center py-2 fs-6 fw-bold text-uppercase">
                 <i class="fas fa-user-shield"></i> Admin Panel
             </div>
             <div class="list-group list-group-flush">
+
+                <a href="{{ route('admin.dashboard') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-dashboard"></i> Dashboard
+                </a>
+                <hr>
+
                 <a href="{{ route('admin.bookings') }}" class="list-group-item list-group-item-action">
                     <i class="fas fa-plane"></i> Bookings
                 </a>

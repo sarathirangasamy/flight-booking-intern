@@ -69,10 +69,15 @@ class AdminController extends Controller
      * Show the admin dashboard with all bookings.
      */
     public function dashboard()
-    {
-        $bookings = Booking::all();
-        return view('admin.dashboard', compact('bookings'));
-    }
+{
+    $userCount = User::count();
+    $pendingBookings = Booking::where('status', 'Pending')->count();
+    $confirmedBookings = Booking::where('status', 'Confirmed')->count();
+    $cancelledBookings = Booking::where('status', 'Cancelled')->count();
+
+    return view('admin.dashboard', compact('userCount', 'pendingBookings', 'confirmedBookings', 'cancelledBookings'));
+}
+
     
 
     public function users()
