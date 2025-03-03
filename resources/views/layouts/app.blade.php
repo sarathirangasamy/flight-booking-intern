@@ -59,9 +59,9 @@
                     <li class="{{ Request::is('hotel') ? 'active' : '' }}">
                         <a href="{{ url('/hotel') }}"><i class="fa-solid fa-spa me-2"></i>Hotels</a>
                     </li>
-                    <!-- <li class="{{ Request::is('car') ? 'active' : '' }}">
+                    <li class="{{ Request::is('car') ? 'active' : '' }}">
                         <a href="{{ url('/car') }}"><i class="fa-solid fa-car me-2"></i>Cars</a>
-                    </li> -->
+                    </li>
                 </ul>
 
                     <ul class="nav-menu nav-menu-social align-to-right">

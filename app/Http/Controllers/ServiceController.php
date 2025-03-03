@@ -110,9 +110,9 @@ class ServiceController extends Controller
     
         // Car Rental fields
         if ($validated['type'] == 'car_rental') {
+            $booking->name = $validated['name'];
             $booking->pickup_location = $validated['pickup_location'];
             $booking->drop_location = $validated['drop_location'];
-            $booking->car_type = json_encode($validated['car_type']);
             $booking->car_type = !empty($validated['car_type']) ? json_encode($validated['car_type']) : null;
             $booking->facility = !empty($validated['facility']) ? json_encode($validated['facility']) : null;
             $booking->offer = $validated['offer'];

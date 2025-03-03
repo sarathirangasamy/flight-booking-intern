@@ -120,7 +120,6 @@
                     <label>Hotel Name</label>
                     <input type="text" name="name" class="form-control">
                 </div>
-                
             </div>
 
 
@@ -205,6 +204,14 @@
         <!-- Car Rental Fields -->
         <div id="car_rental_fields" class="booking-section d-none">
             <h4>Car Rental Booking</h4>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Car Name</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-6">
                     <label>Pickup Location</label>

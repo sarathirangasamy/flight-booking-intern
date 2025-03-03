@@ -15,6 +15,7 @@ Route::get('/filter-flights', [BookingController::class, 'filterFlights']);
 Route::get('/hotel', [BookingController::class, 'hotelPage'])->name('hotel');
 Route::get('/filter-hotel', [BookingController::class, 'filterHotel']);
 
+Route::get('/car', [BookingController::class, 'carPage'])->name('car');
 
 //Booking//
 Route::get('/booking', [BookingController::class, 'booking'])->middleware('auth')->name('booking');

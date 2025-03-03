@@ -20,7 +20,8 @@
             @foreach ($services as $index => $service)
             <tr>
                 <td>{{ $loop->iteration }}</td> <!-- Serial Number -->
-                <td>{{ ucfirst($service->type) }}</td>
+                <td>{{ Str::title(str_replace('_', ' ', $service->type)) }}
+                </td>
                 <td>{{ $service->name ?? '-' }}</td>
                 <td>
                     @if($service->type == 'flight')
@@ -33,11 +34,13 @@
                         <strong>Check-in:</strong> {{ $service->checkin_date }} <br>
                         <strong>Check-out:</strong> {{ $service->checkout_date }} <br>
                         <strong>Rooms:</strong> {{ $service->rooms }} <br>
+                        <strong>Facilities:</strong> {{ implode(', ', json_decode($service->facility, true) ?? []) }} <br>
                     @elseif($service->type == 'car_rental')
                         <strong>Pickup:</strong> {{ $service->pickup_location }} <br>
                         <strong>Drop:</strong> {{ $service->drop_location }} <br>
-                        <strong>Car Type:</strong> {{ json_decode($service->car_type, true) }} <br>
-                        <strong>Facilities:</strong> {{ implode(', ', json_decode($service->facility, true)) }} <br>
+                        <strong>Car Type:</strong> {{ implode(', ', json_decode($service->car_type, true) ?? []) }} <br>
+                        <strong>Facilities:</strong> {{ implode(', ', json_decode($service->facility, true) ?? []) }} <br>
+
                     @endif
                 </td>
                 <td>${{ number_format($service->amount, 2) }}</td>

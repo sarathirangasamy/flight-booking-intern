@@ -194,6 +194,11 @@ class BookingController extends Controller
     }
 
 
+    public function carPage()
+    {
+        $carServices = Service::where('type', '=', 'car_rental')->get();
+        return view('car', compact('carServices'));
+    }
 
     public function booking()
     {
