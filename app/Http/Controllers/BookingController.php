@@ -157,6 +157,44 @@ class BookingController extends Controller
     }
 
 
+
+    public function hotelPage()
+    {
+        $hotelService = Service::where('type', '=', 'hotel')->get();
+        return view('hotel', compact('hotelService'));
+    }
+
+
+    public function filterHotel(Request $request)
+    {
+        $query = Service::where('type', 'hotel');
+    
+        if (!empty($request->going_to)) {
+            $query->where('going_to', $request->going_to);
+        }
+        
+        if (!empty($request->adults)) {
+            $query->where('adults', '>=', $request->adults);
+        }
+    
+        if (!empty($request->children)) {
+            $query->where('children', '>=', $request->children);
+        }
+    
+        if (!empty($request->rooms)) {
+            $query->where('rooms', '>=', $request->rooms);
+        }
+
+
+        $hotelService = $query->get();
+    
+        return response()->json([
+            'hotels' => $hotelService
+        ]);
+    }
+
+
+
     public function booking()
     {
         if (!Auth::check()) {

@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [BookingController::class, 'home'])->name('home');
 Route::get('/filter-flights', [BookingController::class, 'filterFlights']);
 
+Route::get('/hotel', [BookingController::class, 'hotelPage'])->name('hotel');
+Route::get('/filter-hotel', [BookingController::class, 'filterHotel']);
+
 
 //Booking//
 Route::get('/booking', [BookingController::class, 'booking'])->middleware('auth')->name('booking');

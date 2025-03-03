@@ -52,13 +52,17 @@
                     </div>
                 </div>
                 <div class="nav-menus-wrapper" style="transition-property: none;">
-                    <ul class="nav-menu">
-
-                        <li class="active"><a href="home-flight.html"><i class="fa-solid fa-jet-fighter me-2"></i>Flights</a></li>
-                        <li><a href="home-hotel.html"><i class="fa-solid fa-spa me-2"></i>Hotels</a></li>
-                        <li><a href="home-car.html"><i class="fa-solid fa-car me-2"></i>Cars</a></li>
-
-                    </ul>
+                <ul class="nav-menu">
+                    <li class="{{ Request::is('/') ? 'active' : '' }}">
+                        <a href="{{ url('/') }}"><i class="fa-solid fa-jet-fighter me-2"></i>Flights</a>
+                    </li>
+                    <li class="{{ Request::is('hotel') ? 'active' : '' }}">
+                        <a href="{{ url('/hotel') }}"><i class="fa-solid fa-spa me-2"></i>Hotels</a>
+                    </li>
+                    <!-- <li class="{{ Request::is('car') ? 'active' : '' }}">
+                        <a href="{{ url('/car') }}"><i class="fa-solid fa-car me-2"></i>Cars</a>
+                    </li> -->
+                </ul>
 
                     <ul class="nav-menu nav-menu-social align-to-right">
                     @auth

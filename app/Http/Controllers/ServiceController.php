@@ -93,6 +93,7 @@ class ServiceController extends Controller
     
         // Hotel fields
         if ($validated['type'] == 'hotel') {
+            $booking->name = $validated['name'];
             $booking->going_to = $validated['going_to'];
             $booking->checkin_date = $validated['checkin_date'];
             $booking->checkout_date = $validated['checkout_date'];
@@ -122,7 +123,7 @@ class ServiceController extends Controller
     
         $booking->save();
     
-        return redirect()->back()->with('success', 'Booking successfully created!');
+        return redirect()->route('service')->with('success', 'Service successfully created!');
     }
 
     /**

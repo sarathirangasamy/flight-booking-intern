@@ -114,6 +114,16 @@
         <!-- Hotel Fields -->
         <div id="hotel_fields" class="booking-section d-none">
             <h4>Hotel Booking</h4>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Hotel Name</label>
+                    <input type="text" name="name" class="form-control">
+                </div>
+                
+            </div>
+
+
             <div class="row">
                 <div class="col-md-6">
                     <label>Going To</label>
@@ -134,7 +144,7 @@
                     <input type="date" name="checkin_date" class="form-control">
                 </div>
             </div>
-
+    
             <div class="row mt-3">
                 <div class="col-md-6">
                     <label>Check-out Date</label>
