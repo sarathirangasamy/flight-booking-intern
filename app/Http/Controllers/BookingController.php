@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
@@ -105,13 +106,49 @@ class BookingController extends Controller
     public function filterFlights(Request $request)
     {
         $query = Service::where('type', 'flight');
-        
+    
+
+        if (!empty($request->leaving_from)) {
+            $query->where('leaving_from', $request->leaving_from);
+        }
         
         if (!empty($request->going_to)) {
             $query->where('going_to', $request->going_to);
         }
         
+        if (!empty($request->trip_type)) {
+            $query->where('trip_type', $request->trip_type);
+        }
+
+        if (!empty($request->class_type)) {
+            $query->where('class_type', $request->class_type);
+        }
+ 
+        if (!empty($request->going_to)) {
+            $query->where('going_to', $request->going_to);
+        }   
     
+        if (!empty($request->adults)) {
+            $query->where('adults', '>=', $request->adults);
+        }
+    
+        if (!empty($request->children)) {
+            $query->where('children', '>=', $request->children);
+        }
+    
+        if (!empty($request->rooms)) {
+            $query->where('rooms', '>=', $request->rooms);
+        }
+
+        if (!empty($request->departure_date) && !empty($request->return_date)) {
+            $departureDate = Carbon::parse($request->departure_date);
+            $returnDate = Carbon::parse($request->return_date);
+    
+            if ($departureDate->lte($returnDate)) {
+                $query->whereBetween('departure_date', [$departureDate, $returnDate]);
+            }
+        }
+
         $flightsService = $query->get();
     
         return response()->json([

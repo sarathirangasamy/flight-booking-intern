@@ -623,6 +623,13 @@
         leaving_from: leavingFrom !== "" ? leavingFrom : null,
         going_to: goingTo !== "" ? goingTo : null,
         trip_type: tripType !== "" ? tripType : null,
+        class_type: travelClass !== "" ? travelClass : null,
+        adults: adults > 0 ? adults : null,
+        children: children > 0 ? children : null,
+        rooms: rooms > 0 ? rooms : null,
+        departure_date: departureDate !== "" ? departureDate : null,
+        return_date: returnDate !== "" ? returnDate : null,
+
     },
     success: function(response) {
         let flightsContainer = $('#flightsContainer');
@@ -630,7 +637,7 @@
 
         if (response.flights.length > 0) {
             flightsContainer.show();
-            defaultFlightsContainer.hide(); // Hide default flights when filter is applied
+            defaultFlightsContainer.hide();
 
 
             $.each(response.flights, function(index, flight) {
