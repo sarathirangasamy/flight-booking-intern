@@ -33,8 +33,10 @@ Route::post('/admin/register', [RegisterController::class, 'registerAdmin']);
 // Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/bookings', [AdminController::class, 'index'])->name('admin.bookings');
+    Route::get('/admin/service', [ServiceController::class, 'index'])->name('service');
     Route::get('/admin/service/create', [ServiceController::class, 'create'])->name('service.create');
     Route::post('/admin/service/store', [ServiceController::class, 'store'])->name('service.store');
+    Route::delete('/admin/service/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::post('/admin/bookings/update-status/{id}', [AdminController::class, 'updateBookingStatus'])->name('admin.bookings.updateStatus');
 

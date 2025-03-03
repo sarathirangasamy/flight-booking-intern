@@ -74,7 +74,7 @@
                 </a>
                 <hr>
 
-                <a href="{{ route('service.create') }}" class="list-group-item list-group-item-action">
+                <a href="{{ route('service') }}" class="list-group-item list-group-item-action">
                     <i class="fas fa-plane"></i> Service
                 </a>
                 <hr>

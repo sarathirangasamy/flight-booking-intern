@@ -85,6 +85,12 @@
                     </select>
                 </div>
             </div>
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Amount</label>
+                    <input type="number" step="0.01" name="amount" class="form-control">
+                </div>
+            </div>
         </div>
 
         <!-- Hotel Fields -->
@@ -144,6 +150,18 @@
                 </div>
             </div>
 
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Amount</label>
+                    <input type="number" step="0.01" name="amount" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Discount Amount</label>
+                    <input type="number" step="0.01" name="discount_amount" class="form-control">
+                </div>
+            </div>
+
             <div class="mb-3">
                 <label>Room Facilities</label>
                 <select class="form-control" name="facility[]" multiple>
@@ -162,11 +180,31 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>Pickup Location</label>
-                    <input type="text" name="pickup_location" class="form-control">
+                    <select class="form-control" name="pickup_location">
+                        <option value="">Select</option>
+                        <option value="ny">New York</option>
+                        <option value="sd">San Diego</option>
+                        <option value="sj">San Jose</option>
+                        <option value="ph">Philadelphia</option>
+                        <option value="nl">Nashville</option>
+                        <option value="sf">San Francisco</option>
+                        <option value="hu">Houston</option>
+                        <option value="sa">San Antonio</option>
+                    </select>
                 </div>
                 <div class="col-md-6">
                     <label>Drop Location</label>
-                    <input type="text" name="drop_location" class="form-control">
+                    <select class="form-control" name="drop_location">
+                        <option value="">Select</option>
+                        <option value="ny">New York</option>
+                        <option value="sd">San Diego</option>
+                        <option value="sj">San Jose</option>
+                        <option value="ph">Philadelphia</option>
+                        <option value="nl">Nashville</option>
+                        <option value="sf">San Francisco</option>
+                        <option value="hu">Houston</option>
+                        <option value="sa">San Antonio</option>
+                    </select>
                 </div>
             </div>
 
@@ -192,6 +230,28 @@
                     <option value="Diesel">Diesel</option>
                     <option value="Petrol">Petrol</option>
                 </select>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Amount</label>
+                    <input type="number" step="0.01" name="amount" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Discount Amount</label>
+                    <input type="number" step="0.01" name="discount_amount" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Offer (%)</label>
+                    <input type="number" name="offer" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Cancellation Date</label>
+                    <input type="date" name="cancellation_date" class="form-control">
                 </div>
             </div>
         </div>

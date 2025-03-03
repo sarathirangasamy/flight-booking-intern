@@ -14,8 +14,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-//
+        $services = Service::all(); // Fetch all service data
+        return view('admin.view-service', compact('services'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -31,6 +33,7 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
+
         // Validate request data
         $validated = $request->validate([
             'type' => 'required|string|in:flight,hotel,car_rental',
@@ -39,7 +42,7 @@ class ServiceController extends Controller
             'name' => 'nullable|string',
             'trip_type' => 'nullable|string|in:one_way,return',
             'leaving_from' => 'nullable|string',
-            'departure_date' => 'nullable|date',
+            'departure_date' => 'nullable|  date',
             'return_date' => 'nullable|date',
             'class_type' => 'nullable|string',
             'amount' => 'nullable|numeric|min:0',
@@ -58,17 +61,16 @@ class ServiceController extends Controller
             // Car Rental Fields
             'pickup_location' => 'nullable|string',
             'drop_location' => 'nullable|string',
-            'car_type' => 'nullable|string',
-            'facility' => 'nullable|string',
+            'car_type' => 'nullable|array',
+            'car_type.*' => 'string',
+            'facility' => 'nullable|array',
+            'facility.*' => 'string',
             'offer' => 'nullable|integer|min:0|max:100',
             'cancellation_date' => 'nullable|date',
             'discount_amount' => 'nullable|numeric|min:0',
         ]);
     
         // // Convert facility (comma-separated) into JSON array
-        if (!empty($validated['facility'])) {
-            $validated['facility'] = json_encode(explode(',', $validated['facility']));
-        }
     
         // Save booking record
         $booking = new Service();
@@ -97,7 +99,8 @@ class ServiceController extends Controller
             $booking->cancellation_date = $validated['cancellation_date'];
             $booking->amount = $validated['amount'];
             $booking->discount_amount = $validated['discount_amount'];
-            $booking->facility = json_encode($validated['facility']);
+            $booking->facility = !empty($validated['facility']) ? json_encode($validated['facility']) : null;
+
         }
     
         // Car Rental fields
@@ -105,7 +108,8 @@ class ServiceController extends Controller
             $booking->pickup_location = $validated['pickup_location'];
             $booking->drop_location = $validated['drop_location'];
             $booking->car_type = json_encode($validated['car_type']);
-            $booking->facility = json_encode($validated['facility']);
+            $booking->car_type = !empty($validated['car_type']) ? json_encode($validated['car_type']) : null;
+            $booking->facility = !empty($validated['facility']) ? json_encode($validated['facility']) : null;
             $booking->offer = $validated['offer'];
             $booking->cancellation_date = $validated['cancellation_date'];
             $booking->amount = $validated['amount'];
@@ -144,8 +148,10 @@ class ServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Service $service)
+    public function destroy($id)
     {
-        //
+        $service = Service::findOrFail($id); 
+        $service->delete();
+        return redirect()->back()->with('success', 'Service deleted successfully!');
     }
 }
