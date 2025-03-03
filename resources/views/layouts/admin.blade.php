@@ -74,6 +74,11 @@
                 </a>
                 <hr>
 
+                <a href="{{ route('service.create') }}" class="list-group-item list-group-item-action">
+                    <i class="fas fa-plane"></i> Service
+                </a>
+                <hr>
+
                 <a href="{{ route('admin.bookings') }}" class="list-group-item list-group-item-action">
                     <i class="fas fa-plane"></i> Bookings
                 </a>

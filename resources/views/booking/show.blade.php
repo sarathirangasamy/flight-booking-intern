@@ -6,7 +6,7 @@
     <table class="table">
         <tr>
             <th>Flight Name:</th>
-            <td>{{ $booking->flight_name }}</td>
+            <td>{{ $booking->name }}</td>
         </tr>
         <tr>
             <th>Booking Status:</th>

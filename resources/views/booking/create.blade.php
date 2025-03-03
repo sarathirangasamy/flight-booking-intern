@@ -11,8 +11,8 @@
     <form action="{{ route('booking.store') }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label for="flight_name" class="form-label">Flight Name</label>
-            <input type="text" class="form-control" id="flight_name" name="flight_name">
+            <label for="name" class="form-label">Flight Name</label>
+            <input type="text" class="form-control" id="name" name="name">
         </div>
         <div class="mb-3">
             <label>Date</label>

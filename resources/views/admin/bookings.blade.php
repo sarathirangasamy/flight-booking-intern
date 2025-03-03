@@ -17,7 +17,7 @@
         @foreach ($bookings as $booking)
         <tr>
             <td>{{ $booking->id }}</td>
-            <td>{{ $booking->flight_name }}</td>
+            <td>{{ $booking->name }}</td>
             <td>{{ $booking->departure_time }}</td>
             <td>{{ $booking->arrival_time }}</td>
             <td>

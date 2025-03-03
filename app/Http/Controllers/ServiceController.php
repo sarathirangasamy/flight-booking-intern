@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
-use App\Models\User;
+use App\Models\Service;
+use App\Http\Requests\StoreServiceRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateServiceRequest;
 
-class AdminController extends Controller
+class ServiceController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $bookings = Booking::all();
-        return view('admin.bookings', compact('bookings'));
+//
     }
 
     /**
@@ -22,7 +22,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create-service');
+
     }
 
     /**
@@ -70,7 +71,7 @@ class AdminController extends Controller
         }
     
         // Save booking record
-        $booking = new Booking();
+        $booking = new Service();
         $booking->type = $validated['type'];
         
         // Flight fields
@@ -96,14 +97,15 @@ class AdminController extends Controller
             $booking->cancellation_date = $validated['cancellation_date'];
             $booking->amount = $validated['amount'];
             $booking->discount_amount = $validated['discount_amount'];
+            $booking->facility = json_encode($validated['facility']);
         }
     
         // Car Rental fields
         if ($validated['type'] == 'car_rental') {
             $booking->pickup_location = $validated['pickup_location'];
             $booking->drop_location = $validated['drop_location'];
-            $booking->car_type = $validated['car_type'];
-            $booking->facility = $validated['facility'];
+            $booking->car_type = json_encode($validated['car_type']);
+            $booking->facility = json_encode($validated['facility']);
             $booking->offer = $validated['offer'];
             $booking->cancellation_date = $validated['cancellation_date'];
             $booking->amount = $validated['amount'];
@@ -114,12 +116,11 @@ class AdminController extends Controller
     
         return redirect()->back()->with('success', 'Booking successfully created!');
     }
-    
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Service $service)
     {
         //
     }
@@ -127,7 +128,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Service $service)
     {
         //
     }
@@ -135,7 +136,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateServiceRequest $request, Service $service)
     {
         //
     }
@@ -143,39 +144,8 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Service $service)
     {
         //
-    }
-
-    /**
-     * Show the admin dashboard with all bookings.
-     */
-    public function dashboard()
-{
-    $userCount = User::count();
-    $pendingBookings = Booking::where('status', 'Pending')->count();
-    $confirmedBookings = Booking::where('status', 'Confirmed')->count();
-    $cancelledBookings = Booking::where('status', 'Cancelled')->count();
-
-    return view('admin.dashboard', compact('userCount', 'pendingBookings', 'confirmedBookings', 'cancelledBookings'));
-}
-
-
-
-
-    public function users()
-    {
-        $users = User::where('role', '!=', 'admin')->get();
-        return view('admin.users', compact('users'));
-    }
-
-    public function updateBookingStatus(Request $request, $id)
-    {
-        $booking = Booking::findOrFail($id);
-        $booking->status = $request->status;
-        $booking->save();
-    
-        return redirect()->route('admin.dashboard')->with('success', 'Booking status updated successfully!');
     }
 }

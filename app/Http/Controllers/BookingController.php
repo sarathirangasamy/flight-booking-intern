@@ -31,14 +31,14 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         // $request->validate([
-        //     'flight_name' => 'required|string|max:255',
+        //     'name' => 'required|string|max:255',
         //     'departure_date' => 'required|date',
         // ]);
 
         Booking::create([
             'user_id' => Auth::id(),
-            'flight_name' => $request->flight_name,
-            'flight_name' => $request->flight_name,
+            'name' => $request->name,
+            'name' => $request->name,
             'departure_time' => $request->departure_time,
             'arrival_time' => $request->arrival_time,
             'date' => $request->date,
@@ -72,7 +72,7 @@ class BookingController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'flight_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'departure_date' => 'required|date',
             'status' => 'in:pending,confirmed,cancelled',
         ]);

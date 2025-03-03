@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,8 @@ Route::post('/admin/register', [RegisterController::class, 'registerAdmin']);
 // Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/bookings', [AdminController::class, 'index'])->name('admin.bookings');
+    Route::get('/admin/service/create', [ServiceController::class, 'create'])->name('service.create');
+    Route::post('/admin/service/store', [ServiceController::class, 'store'])->name('service.store');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::post('/admin/bookings/update-status/{id}', [AdminController::class, 'updateBookingStatus'])->name('admin.bookings.updateStatus');
 
