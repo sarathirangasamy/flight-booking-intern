@@ -13,12 +13,9 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Reference to users table
-            $table->string('flight_name');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade');
             $table->string('status')->default('pending');
-            $table->time('departure_time')->nullable(); 
-            $table->time('arrival_time')->nullable(); 
-            $table->date('date')->nullable();   
             $table->timestamps();
         });
     }
