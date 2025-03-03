@@ -604,17 +604,6 @@
 			// Get travel class selection
 			let travelClass = document.querySelector(".dropdowns .selected").innerText;
 
-			// Output values for debugging
-			console.log({
-				tripType,
-				leavingFrom,
-				goingTo,
-				departureDate,
-				returnDate,
-				guests: { adults, children, rooms },
-				travelClass,
-			});
-
 			// AJAX Request
 			$.ajax({
 			url: "{{ url('/filter-flights') }}",
