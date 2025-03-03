@@ -11,12 +11,20 @@ class Booking extends Model
 
     protected $fillable = [
         'user_id', 
+        'service_id',
         'name', 
-        'departure_time',
-        'arrival_time',
-        'date',
+        'mobile_number', 
+        'passport_number', 
+        'dob', 
+        'leaving_from', 
+        'going_to', 
+        'trip_type', 
+        'departure_date', 
+        'return_date', 
+        'amount', 
         'status'
     ];
+    
 
     public function user()
     {

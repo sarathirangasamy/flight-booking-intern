@@ -33,18 +33,23 @@ class BookingController extends Controller
     public function store(Request $request)
     {
         // $request->validate([
-        //     'name' => 'required|string|max:255',
-        //     'departure_date' => 'required|date',
+        //     'service_id' => 'required|exists:services,id', // Ensure service_id is provided and valid
         // ]);
 
         Booking::create([
             'user_id' => Auth::id(),
+            'service_id' => $request->service_id ?? null,
             'name' => $request->name,
-            'name' => $request->name,
-            'departure_time' => $request->departure_time,
-            'arrival_time' => $request->arrival_time,
-            'date' => $request->date,
-            'status' => 'pending'
+            'mobile_number' => $request->mobile_number,
+            'passport_number' => $request->passport_number,
+            'dob' => $request->dob,
+            'leaving_from' => $request->leaving_from,
+            'going_to' => $request->going_to,
+            'trip_type' => $request->trip_type,
+            'departure_date' => $request->departure_date,
+            'return_date' => $request->return_date,
+            'amount' => $request->amount,
+            'status' => 'pending',
         ]);
 
         return redirect()->route('home')->with('success', 'Booking created successfully!');
@@ -192,6 +197,7 @@ class BookingController extends Controller
             'hotels' => $hotelService
         ]);
     }
+
 
 
     public function carPage()

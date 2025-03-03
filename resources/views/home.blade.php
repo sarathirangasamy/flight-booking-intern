@@ -268,11 +268,11 @@
 					</div>
 				</div>
 
-				<div class="row justify-content-center gy-4 gx-3 default-flights">
+				<div class="row  gy-4 gx-3 default-flights">
                     @foreach($flightsService as $key => $flight)
                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                             <div class="pop-touritem">
-                                <a href="flight-search.html" class="card rounded-3 border br-dashed h-100 m-0">
+                                <a href="#" class="card rounded-3 border br-dashed h-100 m-0">
                                     <div class="flight-thumb-wrapper">
                                         <div class="popFlights-item-overHidden">
                                             <img src="assets/img/destination/tr-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
@@ -307,12 +307,26 @@
                                                 <span class="ellipsis-item">{{ $duration }}</span>
                                             </p>
                                         </div>
-                                        <div class="flight-foots">
-                                            <h5 class="fs-5 low-price m-0"><span class="tag-span">From</span> <span class="price">₹{{$flight->amount}}</span>
-                                            </h5>
-                                        </div>
+
+
+                                        <div class="flight-foots d-flex justify-content-between align-items-center">
+										<h5 class="fs-5 low-price m-0">
+											<span class="tag-span">From</span> 
+											<span class="price">₹{{ $flight->amount }}</span>
+										</h5>
+										<button class="btn btn-primary btn-sm book-now-btn pt-1 py-0" data-bs-toggle="modal" data-bs-target="#flightBookingModal"
+											data-flight-id="{{ $flight->id }}" data-user-id="{{ auth()->user()->id ?? '' }}"
+											data-leaving-from="{{ $flight->leaving_from }}" data-going-to="{{ $flight->going_to }}"
+											data-trip-type="{{ $flight->trip_type }}" data-departure-date="{{ $flight->departure_date }}"
+											data-return-date="{{ $flight->return_date }}" data-amount="{{ $flight->amount }}">
+											Book Now
+										</button>
+									</div>
+
                                     </div>
                                 </a>
+
+								
                             </div>
                         </div>
                     @endforeach
@@ -580,6 +594,84 @@
 				</div>
 			</div>
 		</footer>
+	
+
+		<div class="modal fade" id="flightBookingModal" tabindex="-1" aria-labelledby="flightBookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="flightBookingModalLabel">Flight Booking Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+			<form action="{{ route('booking.store') }}" method="POST">
+			@csrf
+			<div class="modal-body">
+				<input type="hidden" name="service_id" id="flight_id">
+				<input type="hidden" name="user_id" id="user_id">
+
+				<div class="row">
+					<!-- Leaving From -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Leaving From</label>
+						<input type="text" class="form-control" id="leaving_from" name="leaving_from" readonly>
+					</div>
+					<!-- Going To -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Going To</label>
+						<input type="text" class="form-control" id="going_to" name="going_to" readonly>
+					</div>
+
+					<!-- Trip Type -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Trip Type</label>
+						<input type="text" class="form-control" id="trip_type" name="trip_type" readonly>
+					</div>
+					<!-- Departure Date -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Departure Date</label>
+						<input type="date" class="form-control" id="departure_date" name="departure_date" readonly>
+					</div>
+
+					<!-- Return Date -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Return Date</label>
+						<input type="date" class="form-control" id="return_date" name="return_date" readonly>
+					</div>
+					<!-- Amount -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Amount</label>
+						<input type="text" class="form-control" id="amount" name="amount" readonly>
+					</div>
+
+					<!-- Mobile Number -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Mobile Number</label>
+						<input type="tel" class="form-control" id="mobile_number" name="mobile_number" required>
+					</div>
+					<!-- Passport Number -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Passport Number</label>
+						<input type="text" class="form-control" id="passport_number" name="passport_number" required>
+					</div>
+
+					<!-- Date of Birth -->
+					<div class="col-md-6 mb-3">
+						<label class="form-label">Date of Birth</label>
+						<input type="date" class="form-control" id="dob" name="dob" required>
+					</div>
+				</div>
+			</div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-success">Confirm Booking</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </div>
+</form>
+
+        </div>
+    </div>
+</div>
+
 
         <script>
           document.querySelector(".search-btn").addEventListener("click", function () {
@@ -676,6 +768,23 @@
 		});
 
 		});
+
+
+
+		document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".book-now-btn").forEach(button => {
+            button.addEventListener("click", function () {
+				document.getElementById("flight_id").value = this.getAttribute("data-flight-id");
+                document.getElementById("user_id").value = this.getAttribute("data-user-id");
+                document.getElementById("leaving_from").value = this.getAttribute("data-leaving-from");
+                document.getElementById("going_to").value = this.getAttribute("data-going-to");
+                document.getElementById("trip_type").value = this.getAttribute("data-trip-type");
+                document.getElementById("departure_date").value = this.getAttribute("data-departure-date");
+                document.getElementById("return_date").value = this.getAttribute("data-return-date");
+                document.getElementById("amount").value = this.getAttribute("data-amount");
+            });
+        });
+    });
 </script>
 
 @endsection
