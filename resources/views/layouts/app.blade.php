@@ -128,7 +128,8 @@
         </div>
     </div>
 
-    <div class="container mt-4">
+    <!-- <div class="container mt-4"> -->
+    <div class="">
         @yield('content')
     </div>
 

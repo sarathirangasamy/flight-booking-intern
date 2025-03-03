@@ -75,7 +75,7 @@
                 <hr>
 
                 <a href="{{ route('service') }}" class="list-group-item list-group-item-action">
-                    <i class="fas fa-plane"></i> Service
+                    <i class="fas fa-wrench"></i> Service
                 </a>
                 <hr>
 

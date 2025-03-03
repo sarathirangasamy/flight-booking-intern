@@ -28,8 +28,8 @@
             <h4>Flight Booking</h4>
             <div class="row">
                 <div class="col-md-6">
-                    <label>Flight Name</label>
-                    <select class="form-control" name="name">
+                    <label>Leaving From</label>
+                    <select class="form-control" name="leaving_from">
                         <option value="">Select</option>
                         <option value="ny">New York</option>
                         <option value="sd">San Diego</option>
@@ -52,8 +52,8 @@
 
             <div class="row mt-3">
                 <div class="col-md-6">
-                    <label>Leaving From</label>
-                    <select class="form-control" name="leaving_from">
+                <label>Going To</label>
+                <select class="form-control" name="going_to">
                         <option value="">Select</option>
                         <option value="lv">Las Vegas</option>
                         <option value="la">Los Angeles</option>
@@ -80,7 +80,9 @@
                     <label>Class Type</label>
                     <select name="class_type" class="form-select">
                         <option value="Economy">Economy</option>
-                        <option value="Premium">Premium</option>
+                        <option value="Premium Economy">Premium Economy</option>
+                        <option value="Business">Business</option>
+                        <option value="Business/First">Business/First</option>
                         <option value="First">First</option>
                     </select>
                 </div>
@@ -89,6 +91,22 @@
                 <div class="col-md-6">
                     <label>Amount</label>
                     <input type="number" step="0.01" name="amount" class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Adults</label>
+                    <input type="number" name="adults" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>Children</label>
+                    <input type="number" name="children" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label>Rooms</label>
+                    <input type="number" name="rooms" class="form-control">
                 </div>
             </div>
         </div>
@@ -264,21 +282,35 @@
 
 <!-- JavaScript to Show/Hide Fields -->
 <script>
-    function toggleFields() {
-        let type = document.getElementById('booking_type').value;
-        
-        document.getElementById('flight_fields').classList.add('d-none');
-        document.getElementById('hotel_fields').classList.add('d-none');
-        document.getElementById('car_rental_fields').classList.add('d-none');
+   function toggleFields() {
+    let type = document.getElementById('booking_type').value;
+    
+    document.querySelectorAll('.booking-section input, .booking-section select').forEach(el => {
+        el.disabled = true;
+    });
 
-        if (type === 'flight') {
-            document.getElementById('flight_fields').classList.remove('d-none');
-        } else if (type === 'hotel') {
-            document.getElementById('hotel_fields').classList.remove('d-none');
-        } else if (type === 'car_rental') {
-            document.getElementById('car_rental_fields').classList.remove('d-none');
-        }
+    document.getElementById('flight_fields').classList.add('d-none');
+    document.getElementById('hotel_fields').classList.add('d-none');
+    document.getElementById('car_rental_fields').classList.add('d-none');
+
+    if (type === 'flight') {
+        document.getElementById('flight_fields').classList.remove('d-none');
+        document.querySelectorAll('#flight_fields input, #flight_fields select').forEach(el => {
+            el.disabled = false;
+        });
+    } else if (type === 'hotel') {
+        document.getElementById('hotel_fields').classList.remove('d-none');
+        document.querySelectorAll('#hotel_fields input, #hotel_fields select').forEach(el => {
+            el.disabled = false;
+        });
+    } else if (type === 'car_rental') {
+        document.getElementById('car_rental_fields').classList.remove('d-none');
+        document.querySelectorAll('#car_rental_fields input, #car_rental_fields select').forEach(el => {
+            el.disabled = false;
+        });
     }
+}
+
 </script>
 
 @endsection

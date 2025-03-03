@@ -78,13 +78,17 @@ class ServiceController extends Controller
         
         // Flight fields
         if ($validated['type'] == 'flight') {
-            $booking->name = $validated['name'];
+            $booking->going_to = $validated['going_to'];
             $booking->trip_type = $validated['trip_type'];
             $booking->leaving_from = $validated['leaving_from'];
             $booking->departure_date = $validated['departure_date'];
             $booking->return_date = $validated['return_date'];
             $booking->class_type = $validated['class_type'];
             $booking->amount = $validated['amount'];
+            $booking->amount = $validated['amount'];
+            $booking->adults = $validated['adults'];
+            $booking->children = $validated['children'];
+            $booking->rooms = $validated['rooms'];
         }
     
         // Hotel fields
