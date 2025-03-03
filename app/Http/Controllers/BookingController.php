@@ -101,6 +101,25 @@ class BookingController extends Controller
         return view('home', compact('flightsService'));
     }
 
+
+    public function filterFlights(Request $request)
+    {
+        $query = Service::where('type', 'flight');
+        
+        
+        if (!empty($request->going_to)) {
+            $query->where('going_to', $request->going_to);
+        }
+        
+    
+        $flightsService = $query->get();
+    
+        return response()->json([
+            'flights' => $flightsService
+        ]);
+    }
+
+
     public function booking()
     {
         if (!Auth::check()) {

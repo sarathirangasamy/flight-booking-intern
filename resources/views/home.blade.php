@@ -268,55 +268,63 @@
 					</div>
 				</div>
 
-				<div class="row justify-content-center gy-4 gx-3">
-                @foreach($flightsService as $key => $flight)
-					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-						<div class="pop-touritem">
-							<a href="flight-search.html" class="card rounded-3 border br-dashed h-100 m-0">
-								<div class="flight-thumb-wrapper">
-									<div class="popFlights-item-overHidden">
-                                        <img src="assets/img/destination/tr-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
-									</div>
-								</div>
-								<div class="touritem-middle position-relative p-3">
-									<div class="touritem-flexxer">
-										<h4 class="city fs-6 m-0 fw-bold">
-											<span>{{ $flight->leaving_from }}</span>
-											<span class="svg-icon svg-icon-muted svg-icon-2hx px-1">
-												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z"
-														fill="currentColor" />
-													<path opacity="0.3"
-														d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z"
-														fill="currentColor" />
-												</svg>
-											</span>
-											<span>{{ $flight->going_to }}</span>
-										</h4>
-										<p class="detail ellipsis-container">
-											<span class="ellipsis-item__normal">{{ str_replace('_', ' ', $flight->trip_type) }}
-                                            - trip</span>
-											<span class="separate ellipsis-item__normal"></span>
+				<div class="row justify-content-center gy-4 gx-3 default-flights">
+                    @foreach($flightsService as $key => $flight)
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                            <div class="pop-touritem">
+                                <a href="flight-search.html" class="card rounded-3 border br-dashed h-100 m-0">
+                                    <div class="flight-thumb-wrapper">
+                                        <div class="popFlights-item-overHidden">
+                                            <img src="assets/img/destination/tr-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="touritem-middle position-relative p-3">
+                                        <div class="touritem-flexxer">
+                                            <h4 class="city fs-6 m-0 fw-bold">
+                                                <span>{{ $flight->leaving_from }}</span>
+                                                <span class="svg-icon svg-icon-muted svg-icon-2hx px-1">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z"
+                                                            fill="currentColor" />
+                                                        <path opacity="0.3"
+                                                            d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </span>
+                                                <span>{{ $flight->going_to }}</span>
+                                            </h4>
+                                            <p class="detail ellipsis-container">
+                                                <span class="ellipsis-item__normal">{{ str_replace('_', ' ', $flight->trip_type) }}
+                                                - trip</span>
+                                                <span class="separate ellipsis-item__normal"></span>
 
-                                            @php
-                                                $departureDate = \Carbon\Carbon::parse($flight->departure_date);
-                                                $returnDate = \Carbon\Carbon::parse($flight->return_date);
-                                                $duration = $departureDate->lt($returnDate) ? $departureDate->diffInDays($returnDate) . ' days' : '3 days';
-                                            @endphp
-                                            <span class="ellipsis-item">{{ $duration }}</span>
-										</p>
-									</div>
-									<div class="flight-foots">
-										<h5 class="fs-5 low-price m-0"><span class="tag-span">From</span> <span class="price">₹{{$flight->amount}}</span>
-										</h5>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
+                                                @php
+                                                    $departureDate = \Carbon\Carbon::parse($flight->departure_date);
+                                                    $returnDate = \Carbon\Carbon::parse($flight->return_date);
+                                                    $duration = $departureDate->lt($returnDate) ? $departureDate->diffInDays($returnDate) . ' days' : '3 days';
+                                                @endphp
+                                                <span class="ellipsis-item">{{ $duration }}</span>
+                                            </p>
+                                        </div>
+                                        <div class="flight-foots">
+                                            <h5 class="fs-5 low-price m-0"><span class="tag-span">From</span> <span class="price">₹{{$flight->amount}}</span>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     @endforeach
 				</div>
+
+
+                <div class="row justify-content-center gy-4 gx-3">
+                    <div id="flightsContainer" style="display: none;"></div>
+                </div>
+
+                <p class="no-flights-message text-center mt-3" style="display: none;">No flights found.</p>
+
 			</div>
 		</section>
 
@@ -574,37 +582,104 @@
 		</footer>
 
         <script>
-            document.querySelector(".search-btn").addEventListener("click", function () {
-                // Get trip type (radio)
-                let tripType = document.querySelector("input[name='trip']:checked").value;
+          document.querySelector(".search-btn").addEventListener("click", function () {
+    // Get trip type (radio)
+    let tripType = document.querySelector("input[name='trip']:checked").value;
 
-                // Get selected locations
-                let leavingFrom = document.querySelector(".leaving").value;
-                let goingTo = document.querySelector(".goingto").value;
+    // Get selected locations
+    let leavingFrom = document.querySelector(".leaving").value;
+    let goingTo = document.querySelector(".goingto").value;
 
-                // Get selected dates
-                let departureDate = document.querySelector("input[placeholder='Departure..']").value;
-                let returnDate = document.querySelector("input[placeholder='Return..']").value;
+    let defaultFlightsContainer = $('.default-flights'); // Add class to default flight container
 
-                // Get guest counts
-                let adults = document.getElementById("guests-count-adults").innerText;
-                let children = document.getElementById("guests-count-children").innerText;
-                let rooms = document.getElementById("guests-count-room").innerText;
+    // Get selected dates
+    let departureDate = document.querySelector("input[placeholder='Departure..']").value;
+    let returnDate = document.querySelector("input[placeholder='Return..']").value;
 
-                // Get travel class selection
-                let travelClass = document.querySelector(".dropdowns .selected").innerText;
+    // Get guest counts
+    let adults = document.getElementById("guests-count-adults").innerText;
+    let children = document.getElementById("guests-count-children").innerText;
+    let rooms = document.getElementById("guests-count-room").innerText;
 
-                // Output values
-                console.log({
-                    tripType,
-                    leavingFrom,
-                    goingTo,
-                    departureDate,
-                    returnDate,
-                    guests: { adults, children, rooms },
-                    travelClass,
-                });
+    // Get travel class selection
+    let travelClass = document.querySelector(".dropdowns .selected").innerText;
+
+    // Output values for debugging
+    console.log({
+        tripType,
+        leavingFrom,
+        goingTo,
+        departureDate,
+        returnDate,
+        guests: { adults, children, rooms },
+        travelClass,
+    });
+
+    // AJAX Request
+    $.ajax({
+    url: "{{ url('/filter-flights') }}",
+    type: "GET",
+    data: {
+        leaving_from: leavingFrom !== "" ? leavingFrom : null,
+        going_to: goingTo !== "" ? goingTo : null,
+        trip_type: tripType !== "" ? tripType : null,
+    },
+    success: function(response) {
+        let flightsContainer = $('#flightsContainer');
+        flightsContainer.html(''); 
+
+        if (response.flights.length > 0) {
+            flightsContainer.show();
+            defaultFlightsContainer.hide(); // Hide default flights when filter is applied
+
+
+            $.each(response.flights, function(index, flight) {
+                flightsContainer.append(`
+                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                        <div class="pop-touritem">
+                            <a href="flight-search.html" class="card rounded-3 border br-dashed h-100 m-0">
+                                <div class="flight-thumb-wrapper">
+                                    <img src="assets/img/destination/tr-${index + 1}.jpg" class="img-fluid" alt="">
+                                </div>
+                                <div class="touritem-middle position-relative p-3">
+                                    <div class="touritem-flexxer">
+                                        <h4 class="city fs-6 m-0 fw-bold">
+                                            <span>${flight.leaving_from}</span>
+                                            <span class="svg-icon svg-icon-muted svg-icon-2hx px-1">
+                                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z" fill="currentColor" />
+                                                    <path opacity="0.3" d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z" fill="currentColor" />
+                                                </svg>
+                                            </span>
+                                            <span>${flight.going_to}</span>
+                                        </h4>
+                                        <p class="detail ellipsis-container">
+                                            <span class="ellipsis-item__normal">${flight.trip_type.replace('_', ' ')} - trip</span>
+                                            <span class="separate ellipsis-item__normal"></span>
+                                            <span class="ellipsis-item">3 days</span>
+                                        </p>
+                                    </div>
+                                    <div class="flight-foots">
+                                        <h5 class="fs-5 low-price m-0">
+                                            <span class="tag-span">From</span>
+                                            <span class="price">₹${flight.amount}</span>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                `);
             });
+        } else {
+            flightsContainer.hide(); // Hide container if no flights found
+            defaultFlightsContainer.hide();
+            $('.no-flights-message').show(); // Show "No flights found" message
+        }
+    }
+});
+
+});
 </script>
 
 @endsection

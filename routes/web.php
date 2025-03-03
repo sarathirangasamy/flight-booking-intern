@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [BookingController::class, 'home'])->name('home');
+Route::get('/filter-flights', [BookingController::class, 'filterFlights']);
+
 
 //Booking//
 Route::get('/booking', [BookingController::class, 'booking'])->middleware('auth')->name('booking');
