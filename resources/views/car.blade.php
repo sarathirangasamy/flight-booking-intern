@@ -186,7 +186,7 @@
 					</div>
 				</div>
 
-				<div class="row justify-content-center gy-4 gx-xl-3 gx-lg-4 gx-4">
+				<div class="row  gy-4 gx-xl-3 gx-lg-4 gx-4">
 
                 @foreach($carServices as $key => $car)
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">

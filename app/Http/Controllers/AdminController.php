@@ -13,7 +13,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $bookings = Booking::all();
+        $bookings = Booking::with(['service', 'user'])
+        ->get();
         return view('admin.bookings', compact('bookings'));
     }
 
@@ -153,7 +154,7 @@ class AdminController extends Controller
      */
     public function dashboard()
 {
-    $userCount = User::count();
+    $userCount = User::where('role','=','user')->count();
     $pendingBookings = Booking::where('status', 'Pending')->count();
     $confirmedBookings = Booking::where('status', 'Confirmed')->count();
     $cancelledBookings = Booking::where('status', 'Cancelled')->count();

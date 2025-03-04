@@ -17,6 +17,8 @@ class Booking extends Model
         'passport_number', 
         'dob', 
         'leaving_from', 
+        'checkin_date', 
+        'checkout_date', 
         'going_to', 
         'trip_type', 
         'departure_date', 
@@ -32,5 +34,10 @@ class Booking extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function service()
+    {
+        return $this->belongsTo(Service::class);
     }
 }
