@@ -639,6 +639,8 @@
     <script src="{{ asset('assets/js/prism.js') }}"></script>
     <script src="{{ asset('assets/js/addadult.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
     <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -659,6 +661,27 @@
             signupForm.style.display = "none";
             modalTitle.innerText = "Sign In";
         });
+    });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            @if(session('success'))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "{{ session('success') }}",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            @endif
+
+            @if(session('error'))
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: "{{ session('error') }}",
+                    showConfirmButton: true
+                });
+            @endif
     });
 </script>
 

@@ -32,10 +32,15 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'service_id' => 'required|exists:services,id', // Ensure service_id is provided and valid
-        // ]);
+        // Check if the user is logged in
+        if (!Auth::check()) {
+            return redirect()->route('login')->with('error', 'Please login to create a booking.');
+        }
 
+        // Check if the logged-in user is an admin
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('home')->with('error', 'Admin cannot create a booking.');
+        }
         Booking::create([
             'user_id' => Auth::id(),
             'service_id' => $request->service_id ?? null,
