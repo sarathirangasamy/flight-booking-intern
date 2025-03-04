@@ -49,6 +49,12 @@ class BookingController extends Controller
             'departure_date' => $request->departure_date,
             'return_date' => $request->return_date,
             'amount' => $request->amount,
+            'checkin_date' => $request->checkin_date,
+            'checkout_date' => $request->checkout_date,
+            'amount' => $request->amount,
+            'pickup_location' => $request->pickup_location,
+            'drop_location' => $request->drop_location,
+            'rental_date' => $request->rental_date,
             'status' => 'pending',
         ]);
 

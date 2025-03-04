@@ -22,7 +22,10 @@ class Booking extends Model
         'departure_date', 
         'return_date', 
         'amount', 
-        'status'
+        'status',
+        'pickup_location',
+        'drop_location',
+        'rental_date',
     ];
     
 

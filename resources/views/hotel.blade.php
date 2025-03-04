@@ -287,21 +287,46 @@
                                         </div>
                                     </div>
                                 </div>
+								
                                 <div class="trsms-foots mt-4">
                                     <div class="flts-flex d-flex align-items-end justify-content-between">
                                         <div class="flts-flex-strat">
                                             <div class="d-flex align-items-center justify-content-start">
                                                 <span class="label bg-seegreen text-light">{{$hotel->offer}}% Off</span>
                                             </div>
-                                            <div class="d-flex align-items-center">
-                                                <div class="text-dark fw-bold fs-4">₹{{$hotel->amount}}</div>
-                                                <div class="text-muted-2 fw-medium text-decoration-line-through ms-2">₹{{$hotel->discount_amount}}</div>
-                                            </div>
+                                            <div class="row align-items-center">
+											<!-- Left Side: Amount -->
+												<div class="col-auto">
+													<div class="d-flex align-items-center">
+														<div class="text-dark fw-bold fs-4">₹{{$hotel->amount}}</div>
+														<div class="text-muted-2 fw-medium text-decoration-line-through ms-2">₹{{$hotel->discount_amount}}</div>
+													</div>
+												</div>
+
+												<!-- Right Side: Button -->
+												<div class="col d-flex justify-content-end">
+														<button class="btn btn-sm btn-primary ms-auto" 
+														data-bs-toggle="modal" 
+														data-bs-target="#bookingModal" 
+														data-hotel-name="{{$hotel->name}}" 
+														data-service-id="{{$hotel->id}}" 
+														data-hotel-destination="{{$destination}}"
+														data-hotel-amount="{{$hotel->amount}}"
+														data-hotel-discount="{{$hotel->discount_amount}}"
+														data-hotel-offer="{{$hotel->offer}}"
+														data-hotel-facility="{{ json_encode($facilities) }}">
+														Book Now
+													</button>
+												</div>
+											</div>
+
                                             <div class="d-flex align-items-start flex-column">
                                                 <div class="text-muted-2 text-sm">Per Night</div>
                                             </div>
                                         </div>
                                     </div>
+
+									
                                 </div>
                             </div>
                         </a>
@@ -594,6 +619,78 @@
 			</div>
 		</footer>
         
+
+		<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Confirm Your Booking</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
+                    @csrf
+
+
+					<div class="mb-3">
+                        <h5 class="text-primary"><i class="fa-solid fa-hotel"></i> Hotel: <span id="display_hotel_name"></span></h5>
+                        <p><strong>Destination:</strong> <span id="display_hotel_destination"></span></p>
+                        <p><strong>Offer:</strong> <span class="badge bg-success" id="display_hotel_offer"></span>% OFF</p>
+                        <p><strong>Amount:</strong> ₹<span class="text-dark fw-bold" id="display_hotel_amount"></span></p>
+                        <p class="text-muted"><del>₹<span id="display_hotel_discount"></span></del></p>
+                        <p><strong>Facilities:</strong> <span id="display_hotel_facility"></span></p>
+                    </div>
+
+                    <!-- Hidden Fields for Hotel Data -->
+
+					<input type="hidden" name="service_id" id="service_id">
+                    <input type="hidden" id="hotel_name" name="hotel_name">
+                    <input type="hidden" id="hotel_destination" name="hotel_destination">
+                    <input type="hidden" id="hotel_amount" name="hotel_amount">
+                    <input type="hidden" id="hotel_discount" name="hotel_discount">
+                    <input type="hidden" id="hotel_offer" name="hotel_offer">
+                    <input type="hidden" id="hotel_facility" name="hotel_facility">
+
+                    <!-- Guest Details -->
+                    <div class="mb-3">
+                        <label for="guest_name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="guest_name" name="name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="mobile_number" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobile_number" name="mobile_number" required>
+                    </div>
+
+                    <!-- Travel Details -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="checkin_date" class="form-label">Check-in Date</label>
+                                <input type="date" class="form-control" id="checkin_date" name="checkin_date" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="checkout_date" class="form-label">Check-out Date</label>
+                                <input type="date" class="form-control" id="checkout_date" name="checkout_date" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Booking -->
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">Confirm Booking</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
         <script>
     document.querySelector(".search-btn").addEventListener("click", function () {
     let goingTo = document.querySelector(".goingto")?.value;
@@ -729,6 +826,41 @@
     });
 });
 
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let bookingModal = document.getElementById("bookingModal");
+
+        bookingModal.addEventListener("show.bs.modal", function (event) {
+            let button = event.relatedTarget;
+
+            // Get hotel data from the button
+            let hotelName = button.getAttribute("data-hotel-name");
+            let destination = button.getAttribute("data-hotel-destination");
+            let amount = button.getAttribute("data-hotel-amount");
+            let discount = button.getAttribute("data-hotel-discount");
+            let offer = button.getAttribute("data-hotel-offer");
+            let facility = JSON.parse(button.getAttribute("data-hotel-facility"));
+            let service_id = JSON.parse(button.getAttribute("data-service-id"));
+
+
+            // Populate hidden input fields (for form submission)
+            document.getElementById("hotel_name").value = hotelName;
+            document.getElementById("service_id").value = service_id;
+            document.getElementById("hotel_destination").value = destination;
+            document.getElementById("hotel_amount").value = amount;
+            document.getElementById("hotel_discount").value = discount;
+            document.getElementById("hotel_offer").value = offer;
+            document.getElementById("hotel_facility").value = facility.join(', ');
+
+            // Populate display fields (for user reference)
+            document.getElementById("display_hotel_name").textContent = hotelName;
+            document.getElementById("display_hotel_destination").textContent = destination;
+            document.getElementById("display_hotel_amount").textContent = amount;
+            document.getElementById("display_hotel_discount").textContent = discount;
+            document.getElementById("display_hotel_offer").textContent = offer;
+            document.getElementById("display_hotel_facility").innerHTML = facility.map(fac => `<span class="badge bg-info me-1">${fac}</span>`).join('');
+        });
+    });
 
 </script>
 @endsection

@@ -19,8 +19,13 @@ return new class extends Migration
             $table->string('mobile_number')->nullable();
             $table->string('passport_number')->nullable();
             $table->date('dob')->nullable();
+            $table->date('checkin_date')->nullable();
+            $table->date('checkout_date')->nullable();
+            $table->date('rental_date')->nullable();
             $table->string('leaving_from')->nullable();
             $table->string('going_to')->nullable();
+            $table->string('pickup_location')->nullable();
+            $table->string('drop_location')->nullable();
             $table->string('trip_type')->nullable();
             $table->date('departure_date')->nullable();
             $table->date('return_date')->nullable();

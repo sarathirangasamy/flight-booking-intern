@@ -268,9 +268,23 @@
 													<div class="text-muted-2 fw-medium text-decoration-line-through ms-2">₹{{$car->discount_amount}}</div>
 												</div>
 											</div>
-											
+
+											<!-- Right Side: Book Now Button -->
+											<div class="d-flex justify-content-end">
+												<button class="btn btn-sm btn-primary ms-auto" 
+													data-bs-toggle="modal" 
+													data-bs-target="#bookingModal" 
+													data-car-name="{{$car->name}}" 
+													data-service-id="{{$car->id}}" 
+													data-car-amount="{{$car->amount}}"
+													data-car-discount="{{$car->discount_amount}}"
+													data-car-offer="{{$car->offer}}">
+													Book Now
+												</button>
+											</div>
 										</div>
 									</div>
+
 								</div>
 							</a>
 						</div>
@@ -408,6 +422,102 @@
 				</div>
 			</div>
 		</footer>
+
+		<!-- Booking Modal -->
+<!-- Booking Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Car Rental Booking</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm" method="POST" action="{{ route('booking.store') }}">
+                    @csrf
+                    <input type="hidden" id="service_id" name="service_id">
+
+                    <!-- User Information Fields -->
+                    <div class="mb-3">
+                        <label for="user_name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="user_name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mobile_number" class="form-label">Mobile Number</label>
+                        <input type="text" class="form-control" id="mobile_number" name="mobile_number" required>
+                    </div>
+
+                    <!-- Pickup Location Dropdown -->
+                    <div class="mb-3">
+                        <label for="pickup_location" class="form-label">Pickup Location</label>
+                        <select class="form-control fw-bold" id="pickup_location" name="pickup_location" required>
+                            <option value="">Select Pickup</option>
+                            <option value="New York">New York</option>
+                            <option value="San Diego">San Diego</option>
+                            <option value="San Jose">San Jose</option>
+                            <option value="Philadelphia">Philadelphia</option>
+                            <option value="Nashville">Nashville</option>
+                            <option value="San Francisco">San Francisco</option>
+                            <option value="Houston">Houston</option>
+                            <option value="San Antonio">San Antonio</option>
+                        </select>
+                    </div>
+
+                    <!-- Drop Location Dropdown -->
+                    <div class="mb-3">
+                        <label for="drop_location" class="form-label">Drop Location</label>
+                        <select class="form-control fw-bold" id="drop_location" name="drop_location" required>
+                            <option value="">Select Drop</option>
+                            <option value="New York">New York</option>
+                            <option value="San Diego">San Diego</option>
+                            <option value="San Jose">San Jose</option>
+                            <option value="Philadelphia">Philadelphia</option>
+                            <option value="Nashville">Nashville</option>
+                            <option value="San Francisco">San Francisco</option>
+                            <option value="Houston">Houston</option>
+                            <option value="San Antonio">San Antonio</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="rental_date" class="form-label">Rental Date</label>
+                        <input type="date" class="form-control" id="rental_date" name="rental_date" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var bookingModal = document.getElementById('bookingModal');
+        bookingModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; 
+
+            // Get data from button attributes
+            var serviceId = button.getAttribute('data-service-id');
+            var carName = button.getAttribute('data-car-name');
+            var carAmount = button.getAttribute('data-car-amount');
+            var carDiscount = button.getAttribute('data-car-discount');
+            var carOffer = button.getAttribute('data-car-offer');
+
+            // Populate modal form fields
+            document.getElementById('service_id').value = serviceId;
+            document.getElementById('car_name').value = carName;
+            document.getElementById('car_amount').value = carAmount;
+            document.getElementById('car_discount').value = carDiscount;
+            document.getElementById('car_offer').value = carOffer;
+        });
+    });
+</script>
 
 
 @endsection
