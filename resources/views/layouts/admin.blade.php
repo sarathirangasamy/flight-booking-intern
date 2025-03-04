@@ -65,7 +65,9 @@
         <!-- Sidebar -->
         <div class="border-right" id="sidebar-wrapper">
             <div  class="sidebar-heading text-center py-2 fs-6 fw-bold text-uppercase">
-                <i class="fas fa-user-shield"></i> Admin Panel
+                <a href="{{ route('home') }}" class="text-decoration-none text-white">
+                <i class="fas fa-user-shield"></i> Geo Trip
+            </a>
             </div>
             <div class="list-group list-group-flush">
 
