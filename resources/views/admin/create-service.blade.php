@@ -109,7 +109,16 @@
                     <input type="number" name="rooms" class="form-control">
                 </div>
             </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <label>No of Days</label>
+                    <input type="number" step="0.01" name="no_of_days" class="form-control">
+                </div>
+            </div>
         </div>
+
+        
 
         <!-- Hotel Fields -->
         <div id="hotel_fields" class="booking-section d-none">

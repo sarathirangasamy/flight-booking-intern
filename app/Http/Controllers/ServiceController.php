@@ -46,6 +46,7 @@ class ServiceController extends Controller
             'return_date' => 'nullable|date',
             'class_type' => 'nullable|string',
             'amount' => 'nullable|numeric|min:0',
+            'no_of_days' => 'nullable|numeric|min:0',
     
             // Hotel Fields
             'going_to' => 'nullable|string',
@@ -85,7 +86,7 @@ class ServiceController extends Controller
             $booking->return_date = $validated['return_date'];
             $booking->class_type = $validated['class_type'];
             $booking->amount = $validated['amount'];
-            $booking->amount = $validated['amount'];
+            $booking->no_of_days = $validated['no_of_days'];
             $booking->adults = $validated['adults'];
             $booking->children = $validated['children'];
             $booking->rooms = $validated['rooms'];

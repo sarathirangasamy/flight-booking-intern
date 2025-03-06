@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('children')->nullable();
             $table->integer('rooms')->nullable();
             $table->string('class_type')->nullable();
+            $table->integer('no_of_days')->nullable();
 
             // Hotel-specific fields
             $table->string('going_to')->nullable();

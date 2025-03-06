@@ -322,12 +322,8 @@
                                                 - trip</span>
                                                 <span class="separate ellipsis-item__normal"></span>
 
-                                                @php
-                                                    $departureDate = \Carbon\Carbon::parse($flight->departure_date);
-                                                    $returnDate = \Carbon\Carbon::parse($flight->return_date);
-                                                    $duration = $departureDate->lt($returnDate) ? $departureDate->diffInDays($returnDate) . ' days' : '3 days';
-                                                @endphp
-                                                <span class="ellipsis-item">{{ $duration }}</span>
+                                                
+                                                <span class="ellipsis-item">{{ $flight->no_of_days }} days</span>
                                             </p>
                                         </div>
 
