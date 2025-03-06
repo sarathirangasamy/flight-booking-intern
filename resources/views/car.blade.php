@@ -24,44 +24,54 @@
 					</div>
 
 					<div class="col-12">
-                        <div class="search-wrap bg-white rounded-3 p-3">
-                            <div class="row g-3">
+						<div class="search-wrap bg-white rounded-3 p-2">
+							<div class="row g-2 align-items-center">
 
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group mb-0">
-                                        <select class="pickup form-control fw-bold">
-                                            <option value="">Select Pickup</option>
-                                            <option value="ny">New York</option>
-                                            <option value="sd">San Diego</option>
-                                            <option value="sj">San Jose</option>
-                                            <option value="ph">Philadelphia</option>
-                                            <option value="nl">Nashville</option>
-                                            <option value="sf">San Francisco</option>
-                                            <option value="hu">Houston</option>
-                                            <option value="sa">San Antonio</option>
-                                        </select>
-                                    </div>
-                                </div>
+								<!-- Pickup Column -->
+								<div class="col-xl-5 col-lg-7 col-md-6">
+									<div class="form-group mb-0">
+										<select class="pickup form-control fw-bold">
+											<option value="">Select Pickup</option>
+											<option value="ny">New York</option>
+											<option value="sd">San Diego</option>
+											<option value="sj">San Jose</option>
+											<option value="ph">Philadelphia</option>
+											<option value="nl">Nashville</option>
+											<option value="sf">San Francisco</option>
+											<option value="hu">Houston</option>
+											<option value="sa">San Antonio</option>
+										</select>
+									</div>
+								</div>
 
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="form-group mb-0">
-                                        <select class="drop form-control fw-bold">
-                                            <option value="">Select Drop</option>
-                                            <option value="ny">New York</option>
-                                            <option value="sd">San Diego</option>
-                                            <option value="sj">San Jose</option>
-                                            <option value="ph">Philadelphia</option>
-                                            <option value="nl">Nashville</option>
-                                            <option value="sf">San Francisco</option>
-                                            <option value="hu">Houston</option>
-                                            <option value="sa">San Antonio</option>
-                                        </select>
-                                    </div>
-                                </div>
+								<!-- Drop Column -->
+								<div class="col-xl-6 col-lg-4 col-md-4">
+									<div class="form-group mb-0">
+										<select class="drop form-control fw-bold">
+											<option value="">Select Drop</option>
+											<option value="ny">New York</option>
+											<option value="sd">San Diego</option>
+											<option value="sj">San Jose</option>
+											<option value="ph">Philadelphia</option>
+											<option value="nl">Nashville</option>
+											<option value="sf">San Francisco</option>
+											<option value="hu">Houston</option>
+											<option value="sa">San Antonio</option>
+										</select>
+									</div>
+								</div>
 
-                            </div>
-                        </div>
-                    </div>
+								<!-- Search Button -->
+								<div class="col-xl-1 col-lg-1 col-md-2">
+									<button type="button" class="btn search-btn btn-primary btn-submit w-100">
+										<i class="fa-solid fa-magnifying-glass"></i>
+									</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
 
 				</div>
 				<!-- </row> -->
@@ -186,7 +196,7 @@
 					</div>
 				</div>
 
-				<div class="row  gy-4 gx-xl-3 gx-lg-4 gx-4">
+				<div class="row  gy-4 gx-xl-3 gx-lg-4 gx-4 main-carousel-hotel">
 
                 @foreach($carServices as $key => $car)
 					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
@@ -289,11 +299,12 @@
 							</a>
 						</div>
 					</div>
-
-
                     @endforeach
 
 				</div>
+
+				<div class="row car-list"></div>
+
 
 				<div class="row align-items-center justify-content-center">
 					<div class="col-xl-12 col-lg-12 col-md-12">
@@ -452,14 +463,14 @@
                         <label for="pickup_location" class="form-label">Pickup Location</label>
                         <select class="form-control fw-bold" id="pickup_location" name="pickup_location" required>
                             <option value="">Select Pickup</option>
-                            <option value="New York">New York</option>
-                            <option value="San Diego">San Diego</option>
-                            <option value="San Jose">San Jose</option>
-                            <option value="Philadelphia">Philadelphia</option>
-                            <option value="Nashville">Nashville</option>
-                            <option value="San Francisco">San Francisco</option>
-                            <option value="Houston">Houston</option>
-                            <option value="San Antonio">San Antonio</option>
+                           <option value="ny">New York</option>
+                        <option value="sd">San Diego</option>
+                        <option value="sj">San Jose</option>
+                        <option value="ph">Philadelphia</option>
+                        <option value="nl">Nashville</option>
+                        <option value="sf">San Francisco</option>
+                        <option value="hu">Houston</option>
+                        <option value="sa">San Antonio</option>
                         </select>
                     </div>
 
@@ -468,14 +479,14 @@
                         <label for="drop_location" class="form-label">Drop Location</label>
                         <select class="form-control fw-bold" id="drop_location" name="drop_location" required>
                             <option value="">Select Drop</option>
-                            <option value="New York">New York</option>
-                            <option value="San Diego">San Diego</option>
-                            <option value="San Jose">San Jose</option>
-                            <option value="Philadelphia">Philadelphia</option>
-                            <option value="Nashville">Nashville</option>
-                            <option value="San Francisco">San Francisco</option>
-                            <option value="Houston">Houston</option>
-                            <option value="San Antonio">San Antonio</option>
+                           <option value="ny">New York</option>
+                        <option value="sd">San Diego</option>
+                        <option value="sj">San Jose</option>
+                        <option value="ph">Philadelphia</option>
+                        <option value="nl">Nashville</option>
+                        <option value="sf">San Francisco</option>
+                        <option value="hu">Houston</option>
+                        <option value="sa">San Antonio</option>
                         </select>
                     </div>
 
@@ -517,6 +528,118 @@
             document.getElementById('car_offer').value = carOffer;
         });
     });
+
+
+	document.querySelector(".search-btn").addEventListener("click", function () {
+    let pickup_location = document.querySelector(".pickup")?.value;
+    let drop_location = document.querySelector(".drop")?.value;
+
+    $.ajax({
+        url: "{{ url('/filter-car') }}",
+        type: "GET",
+        data: {
+            pickup_location: pickup_location !== "" ? pickup_location : null,
+            drop_location: drop_location !== "" ? drop_location : null,
+        },
+        success: function (response) {
+                $(".main-carousel-hotel").hide();
+            if (response.cars.length > 0) {
+                $(".car-list").html(""); // Clear existing list
+                
+                $.each(response.cars, function (index, car) {
+                    let carTypes = "";
+                    let facilities = "";
+
+                    try {
+                        carTypes = Array.isArray(car.car_type) 
+                            ? car.car_type.join(" | ") 
+                            : JSON.parse(car.car_type).join(" | ");
+                    } catch (e) {
+                        carTypes = car.car_type;
+                    }
+
+                    try {
+                        facilities = Array.isArray(car.facility) 
+                            ? car.facility.map(facility => `<span class="ellipsis">${facility}</span>`).join("")
+                            : JSON.parse(car.facility).map(facility => `<span class="ellipsis">${facility}</span>`).join("");
+                    } catch (e) {
+                        facilities = `<span class="text-success">${car.facility}</span>`;
+                    }
+
+                    let carHtml = `
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                            <div class="pop-touritem">
+                                <a href="#" class="card rounded-3 shadow-wrap m-0">
+                                    <div class="flight-thumb-wrapper">
+                                        <div class="popFlights-item-overHidden">
+                                            <img src="assets/img/car.jpg" class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="touritem-middle position-relative p-3">
+                                        <div class="touritem-flexxer">
+                                            <h4 class="city fs-4 m-0 fw-bold">
+                                                <span>${car.name}</span>
+                                            </h4>
+                                            <p class="detail ellipsis-container">${carTypes}</p>
+                                            <div class="touritem-centrio mt-4">
+                                                <div class="d-block position-relative">
+                                                    <span class="label bg-light-success text-success">
+                                                        Free Cancellation Till ${car.cancellation_date}
+                                                    </span>
+                                                </div>
+                                                <div class="aments-lists mt-2">
+                                                    <div class="detail ellipsis-container mt-1">
+                                                        ${facilities}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="trsms-foots mt-4">
+                                            <div class="flts-flex d-flex align-items-end justify-content-between">
+                                                <div class="flts-flex-strat">
+                                                    <div class="d-flex align-items-center">
+                                                        <span class="label bg-light-danger text-danger">${car.offer}% Off</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="text-dark fw-bold fs-4">₹${car.amount}</div>
+                                                        <div class="text-muted-2 fw-medium text-decoration-line-through ms-2">
+                                                            ₹${car.discount_amount}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button class="btn btn-sm btn-primary ms-auto" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#bookingModal" 
+                                                        data-car-name="${car.name}" 
+                                                        data-service-id="${car.id}" 
+                                                        data-car-amount="${car.amount}"
+                                                        data-car-discount="${car.discount_amount}"
+                                                        data-car-offer="${car.offer}">
+                                                        Book Now
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>`;
+
+                    $(".car-list").append(carHtml);
+                });
+            } else {
+                $(".car-list").html('<p class="text-center text-danger">No cars found for selected locations.</p>');
+            }
+        },
+        error: function (error) {
+            console.log("Error fetching cars:", error);
+        }
+    });
+});
+
+
+
 </script>
 
 

@@ -230,6 +230,26 @@ class BookingController extends Controller
         return view('car', compact('carServices'));
     }
 
+    public function filterCars(Request $request)
+    {
+        $query = Service::where('type', 'car_rental');
+    
+        if (!empty($request->pickup_location)) {
+            $query->where('pickup_location','=', $request->pickup_location);
+        }
+
+        if (!empty($request->drop_location)) {
+            $query->where('drop_location','=', $request->drop_location);
+        }
+
+        $carService = $query->get();
+
+        return response()->json([
+            'cars' => $carService
+        ]);
+    }
+
+
     public function booking()
     {
         if (!Auth::check()) {
