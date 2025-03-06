@@ -44,6 +44,16 @@ class BookingController extends Controller
         if (Auth::user()->role === 'admin') {
             return redirect()->route('home')->with('error', 'Admin cannot create a booking.');
         }
+
+        $departureDate = Carbon::parse($request->departure_date);
+        $returnDate = $request->return_date ? Carbon::parse($request->return_date) : null;
+    
+        // Check if departure date is greater than return date
+        if ($returnDate && $departureDate->greaterThan($returnDate)) {
+            return redirect()->route('home')->with('error', 'Return date must be after the departure date.');
+
+        }
+
         Booking::create([
             'user_id' => Auth::id(),
             'service_id' => $request->service_id ?? null,

@@ -9,6 +9,29 @@
     width: 100% !important;
     display: flex !important;
 }
+
+
+.custom-input-group {
+        background: #f8f9fa;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+    .custom-input-group label {
+        width: 120px;
+        font-weight: bold;
+        margin-right: 10px;
+        color: #495057;
+    }
+    .custom-input-group span {
+        flex: 1;
+        color: #000;
+    }
 </style>
 
     <div class="image-cover hero-header bg-white" style="background:url(assets/img/banner-7.jpg)no-repeat;" data-overlay="6">
@@ -601,6 +624,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="flightBookingModalLabel">Flight Booking Details</h5>
+				
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 			<form action="{{ route('booking.store') }}" method="POST">
@@ -610,38 +634,54 @@
 				<input type="hidden" name="user_id" id="user_id">
 
 				<div class="row">
-					<!-- Leaving From -->
-					<div class="col-md-6 mb-3">
-						<label class="form-label">Leaving From</label>
-						<input type="text" class="form-control" id="leaving_from" name="leaving_from" readonly>
-					</div>
-					<!-- Going To -->
-					<div class="col-md-6 mb-3">
-						<label class="form-label">Going To</label>
-						<input type="text" class="form-control" id="going_to" name="going_to" readonly>
-					</div>
 
-					<!-- Trip Type -->
-					<div class="col-md-6 mb-3">
-						<label class="form-label">Trip Type</label>
-						<input type="text" class="form-control" id="trip_type" name="trip_type" readonly>
+				<div class="col-md-6">
+					<div class="custom-input-group">
+						<label>Leaving From:</label>
+						<span id="leaving_from_display"></span>
 					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="custom-input-group">
+						<label>Going To:</label>
+						<span id="going_to_display"></span>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="custom-input-group">
+						<label>Trip Type:</label>
+						<span id="trip_type_display"></span>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="custom-input-group">
+						<label>Amount:</label>
+						<span>₹</span><span id="amount_display"></span>
+					</div>
+				</div>
+
+
+				<input type="hidden" class="form-control" id="leaving_from" name="leaving_from" >
+				<input type="hidden" class="form-control" id="going_to" name="going_to" >
+				<input type="hidden" class="form-control" id="trip_type" name="trip_type" >
+				<input type="hidden" class="form-control" id="amount" name="amount" >
+
+
 					<!-- Departure Date -->
 					<div class="col-md-6 mb-3">
 						<label class="form-label">Departure Date</label>
-						<input type="date" class="form-control" id="departure_date" name="departure_date" readonly>
+						<input type="date" class="form-control"  name="departure_date">
 					</div>
 
 					<!-- Return Date -->
 					<div class="col-md-6 mb-3">
 						<label class="form-label">Return Date</label>
-						<input type="date" class="form-control" id="return_date" name="return_date" readonly>
+						<input type="date" class="form-control"  name="return_date">
 					</div>
-					<!-- Amount -->
-					<div class="col-md-6 mb-3">
-						<label class="form-label">Amount</label>
-						<input type="text" class="form-control" id="amount" name="amount" readonly>
-					</div>
+
 
 					<!-- Mobile Number -->
 					<div class="col-md-6 mb-3">
@@ -779,9 +819,13 @@
                 document.getElementById("leaving_from").value = this.getAttribute("data-leaving-from");
                 document.getElementById("going_to").value = this.getAttribute("data-going-to");
                 document.getElementById("trip_type").value = this.getAttribute("data-trip-type");
-                document.getElementById("departure_date").value = this.getAttribute("data-departure-date");
-                document.getElementById("return_date").value = this.getAttribute("data-return-date");
                 document.getElementById("amount").value = this.getAttribute("data-amount");
+
+
+				document.getElementById("leaving_from_display").textContent = this.getAttribute("data-leaving-from");
+            document.getElementById("going_to_display").textContent = this.getAttribute("data-going-to");
+            document.getElementById("trip_type_display").textContent = this.getAttribute("data-trip-type");
+            document.getElementById("amount_display").textContent = this.getAttribute("data-amount");
             });
         });
     });
