@@ -325,6 +325,25 @@
                                                 
                                                 <span class="ellipsis-item">{{ $flight->no_of_days }} days</span>
                                             </p>
+
+											<p>Rating: 
+													@php
+														$total_rating = $flight->ratings->first()->total_rating ?? 0;
+														$total_reviews = $flight->ratings->first()->total_reviews ?? 0;
+														$average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
+													@endphp
+
+													@for ($i = 1; $i <= 5; $i++)
+														@if ($i <= $average_rating)
+															<i class="fa fa-star text-warning"></i>  <!-- Full Star -->
+														@else
+															<i class="fa fa-star text-muted"></i>   <!-- Empty Star -->
+														@endif
+													@endfor
+													({{ $total_reviews }} reviews)
+												</p>
+
+
                                         </div>
 
 

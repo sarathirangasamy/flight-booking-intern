@@ -7,6 +7,8 @@ use App\Models\Service;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class BookingController extends Controller
 {
@@ -127,14 +129,28 @@ class BookingController extends Controller
 
     public function home()
     {
-        $flightsService = Service::where('type', '=', 'flight')->get();
+        $flightsService = Service::where('type', '=', 'flight')
+            ->with(['ratings' => function ($query) {
+                $query->select('service_id', 
+                    DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+                    DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
+                )->groupBy('service_id');
+            }])
+            ->get();
+        
         return view('home', compact('flightsService'));
     }
 
 
     public function filterFlights(Request $request)
     {
-        $query = Service::where('type', 'flight');
+        $query = Service::where('type', 'flight')->whereHas('ratings') 
+        ->with(['ratings' => function ($query) {
+            $query->select('service_id', 
+                DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+                DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
+            )->groupBy('service_id');
+        }]);
     
 
         if (!empty($request->leaving_from)) {
