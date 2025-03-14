@@ -153,6 +153,23 @@ class ServiceController extends Controller
         
     }
 
+
+    public function showHotelDetails($id)
+    {
+        $hotel = Service::with(['ratings' => function ($query) {
+        $query->select(
+            'service_id', 
+            \DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+            \DB::raw('COALESCE(COUNT(id), 0) as total_reviews'),
+            \DB::raw('GROUP_CONCAT(description SEPARATOR " || ") as descriptions') // Fetch multiple descriptions
+        )->groupBy('service_id');
+    }])->findOrFail($id);
+    
+    return view('hotel.show', compact('hotel'));
+    
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

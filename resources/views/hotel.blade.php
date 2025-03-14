@@ -233,61 +233,81 @@
 				<div class="row justify-content-center">
     <div class="col-xl-12 col-lg-12 col-md-12 p-0">
         <div class="main-carousel main-carousel-hotel cols-3 dots-full">
-            @foreach($hotelService as $key => $hotel)
-                <div class="carousel-cell">
-                    <div class="pop-touritem">
-                        <a href="#" class="card rounded-3 border br-dashed m-0">
-                            <div class="flight-thumb-wrapper">
-                                <div class="popFlights-item-overHidden">
-                                    <img src="assets/img/hotel/hotel-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
-                                </div>
-                            </div>
-                            <div class="touritem-middle position-relative p-3">
-                                <div class="touritem-flexxer">
-                                    <h4 class="city fs-6 m-0 fw-bold">
-                                        <span>{{$hotel->name}}</span>
-                                    </h4>
-                                    <p class="detail ellipsis-container">
-                                        @php
-                                            $cityNames = [
-                                                'ny' => 'New York',
-                                                'sd' => 'San Diego',
-                                                'sj' => 'San Jose',
-                                                'ph' => 'Philadelphia',
-                                                'nl' => 'Nashville',
-                                                'sf' => 'San Francisco',
-                                                'hu' => 'Houston',
-                                                'sa' => 'San Antonio'
-                                            ];
-                                            $destination = $cityNames[$hotel->going_to] ?? 'Unknown';
-                                        @endphp
-                                        <span class="ellipsis-item__normal">{{ $destination }}</span>
-                                        <span class="separate ellipsis-item__normal"></span>
-                                        <span class="ellipsis-item">3.5 Km From {{$destination}}</span>
-                                    </p>
+		@foreach($hotelService as $key => $hotel)
+			<div class="carousel-cell">
+				<div class="pop-touritem">
+				<a href="{{ route('service.hotel.show', ['id' => $hotel->id]) }}" 
+					class="card rounded-3 border br-dashed m-0">
 
-                                    <div class="touritem-centrio mt-4">
-                                        <div class="d-block position-relative">
-                                            <span class="label bg-light-success text-success">Free Cancellation Till {{$hotel->cancellation_date}}</span>
-                                        </div>
-                                        <div class="aments-lists mt-2">
-                                            <ul class="p-0 row gx-3 gy-2 align-items-start flex-wrap">
-                                                @php
-                                                    $facilities = json_decode($hotel->facility, true);
-                                                @endphp
+						<div class="flight-thumb-wrapper">
+							<div class="popFlights-item-overHidden">
+								<img src="assets/img/hotel/hotel-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
+							</div>
+						</div>
+						<div class="touritem-middle position-relative p-3">
+							<div class="touritem-flexxer">
+								<h4 class="city fs-6 m-0 fw-bold">
+									<span>{{$hotel->name}}</span>
+								</h4>
+								<p class="detail ellipsis-container">
+									@php
+										$cityNames = [
+											'ny' => 'New York',
+											'sd' => 'San Diego',
+											'sj' => 'San Jose',
+											'ph' => 'Philadelphia',
+											'nl' => 'Nashville',
+											'sf' => 'San Francisco',
+											'hu' => 'Houston',
+											'sa' => 'San Antonio'
+										];
+										$destination = $cityNames[$hotel->going_to] ?? 'Unknown';
+									@endphp
+									<span class="ellipsis-item__normal">{{ $destination }}</span>
+									<span class="separate ellipsis-item__normal"></span>
+									<span class="ellipsis-item">3.5 Km From {{$destination}}</span>
+								</p>
 
-                                                @if(!empty($facilities) && is_array($facilities))
-                                                    @foreach($facilities as $facility)
-                                                        <li class="col-auto text-dark text-md text-muted-2 d-inline-flex align-items-center">
-                                                            <i class="fa-solid fa-check text-success me-1"></i>{{ $facility }}
-                                                        </li>
-                                                    @endforeach
-                                                @endif
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-								
+								<div class="touritem-centrio mt-4">
+									<div class="d-block position-relative">
+										<span class="label bg-light-success text-success">
+											Free Cancellation Till {{$hotel->cancellation_date}}
+										</span>
+									</div>
+
+									<!-- Rating System -->
+									<div class="mt-2">
+										<p>Rating:
+											@php
+												$total_rating = $hotel->ratings->first()->total_rating ?? 0;
+												$total_reviews = $hotel->ratings->first()->total_reviews ?? 0;
+												$average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
+											@endphp
+
+											@for ($i = 1; $i <= 5; $i++)
+												<i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
+											@endfor
+											({{ $total_reviews }} reviews)
+										</p>
+									</div>
+
+									<!-- Facilities List -->
+									<div class="aments-lists mt-2">
+										<ul class="p-0 row gx-3 gy-2 align-items-start flex-wrap">
+											@php
+												$facilities = json_decode($hotel->facility, true);
+											@endphp
+
+											@if(!empty($facilities) && is_array($facilities))
+												@foreach($facilities as $facility)
+													<li class="col-auto text-dark text-md text-muted-2 d-inline-flex align-items-center">
+														<i class="fa-solid fa-check text-success me-1"></i>{{ $facility }}
+													</li>
+												@endforeach
+											@endif
+										</ul>
+									</div>
+								</div>
                                 <div class="trsms-foots mt-4">
                                     <div class="flts-flex d-flex align-items-end justify-content-between">
                                         <div class="flts-flex-strat">
@@ -328,12 +348,12 @@
 
 									
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            @endforeach
-
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		@endforeach
             <!-- No hotels message -->
             @if(count($hotelService) == 0)
                 <p class="no-hotels-message text-center text-danger">No hotels found.</p>
@@ -753,57 +773,76 @@
                         </li>`).join('') : '';
 
                     let hotelCard = `
-                        <div class="carousel-cell">
-                            <div class="pop-touritem">
-                                <a href="#" class="card rounded-3 border br-dashed m-0">
-                                    <div class="flight-thumb-wrapper">
-                                        <div class="popFlights-item-overHidden">
-                                            <img src="assets/img/hotel/hotel-${index + 1}.jpg" class="img-fluid" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="touritem-middle position-relative p-3">
-                                        <div class="touritem-flexxer">
-                                            <h4 class="city fs-6 m-0 fw-bold">
-                                                <span>${hotel.name}</span>
-                                            </h4>
-                                            <p class="detail ellipsis-container">
-                                                <span class="ellipsis-item__normal">${destination || 'Unknown'}</span>
-                                                <span class="separate ellipsis-item__normal"></span>
-                                                <span class="ellipsis-item">3.5 Km From ${destination || 'Unknown'}</span>
-                                            </p>
-                                            <div class="touritem-centrio mt-4">
-                                                <div class="d-block position-relative">
-                                                    <span class="label bg-light-success text-success">
-                                                        Free Cancellation Till ${hotel.cancellation_date}
-                                                    </span>
-                                                </div>
-                                                <div class="aments-lists mt-2">
-                                                    <ul class="p-0 row gx-3 gy-2 align-items-start flex-wrap">
-                                                        ${facilitiesHTML}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="trsms-foots mt-4">
-                                            <div class="flts-flex d-flex align-items-end justify-content-between">
-                                                <div class="flts-flex-strat">
-                                                    <div class="d-flex align-items-center justify-content-start">
-                                                        <span class="label bg-seegreen text-light">${hotel.offer}% Off</span>
-                                                    </div>
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="text-dark fw-bold fs-4">₹${hotel.amount}</div>
-                                                        <div class="text-muted-2 fw-medium text-decoration-line-through ms-2">₹${hotel.discount_amount}</div>
-                                                    </div>
-                                                    <div class="d-flex align-items-start flex-column">
-                                                        <div class="text-muted-2 text-sm">Per Night</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
+                      <div class="carousel-cell">
+						<div class="pop-touritem">
+							<a href="{{ route('service.hotel.show', ['id' => $hotel->id]) }}" class="card rounded-3 border br-dashed m-0">
+								<div class="flight-thumb-wrapper">
+									<div class="popFlights-item-overHidden">
+										<img src="assets/img/hotel/hotel-${index + 1}.jpg" class="img-fluid" alt="">
+									</div>
+								</div>
+								<div class="touritem-middle position-relative p-3">
+									<div class="touritem-flexxer">
+										<h4 class="city fs-6 m-0 fw-bold">
+											<span>${hotel.name}</span>
+										</h4>
+										<p class="detail ellipsis-container">
+											<span class="ellipsis-item__normal">${destination || 'Unknown'}</span>
+											<span class="separate ellipsis-item__normal"></span>
+											<span class="ellipsis-item">3.5 Km From ${destination || 'Unknown'}</span>
+										</p>
+
+										<!-- Rating System -->
+										<div class="mt-2">
+											<p>Rating:
+												${(() => {
+													let totalRating = hotel.ratings?.[0]?.total_rating || 0;
+													let totalReviews = hotel.ratings?.[0]?.total_reviews || 0;
+													let avgRating = totalReviews > 0 ? Math.round(totalRating / totalReviews) : 0;
+													return `
+														${[...Array(5)].map((_, i) => 
+															`<i class="fa fa-star ${i < avgRating ? 'text-warning' : 'text-muted'}"></i>`
+														).join('')}
+														(${totalReviews} reviews)
+													`;
+												})()}
+											</p>
+										</div>
+
+										<div class="touritem-centrio mt-4">
+											<div class="d-block position-relative">
+												<span class="label bg-light-success text-success">
+													Free Cancellation Till ${hotel.cancellation_date}
+												</span>
+											</div>
+											<div class="aments-lists mt-2">
+												<ul class="p-0 row gx-3 gy-2 align-items-start flex-wrap">
+													${facilitiesHTML}
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="trsms-foots mt-4">
+										<div class="flts-flex d-flex align-items-end justify-content-between">
+											<div class="flts-flex-strat">
+												<div class="d-flex align-items-center justify-content-start">
+													<span class="label bg-seegreen text-light">${hotel.offer}% Off</span>
+												</div>
+												<div class="d-flex align-items-center">
+													<div class="text-dark fw-bold fs-4">₹${hotel.amount}</div>
+													<div class="text-muted-2 fw-medium text-decoration-line-through ms-2">₹${hotel.discount_amount}</div>
+												</div>
+												<div class="d-flex align-items-start flex-column">
+													<div class="text-muted-2 text-sm">Per Night</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</div>
+
                     `;
                     hotelCards += hotelCard;
                 });

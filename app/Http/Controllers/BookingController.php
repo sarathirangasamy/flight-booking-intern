@@ -205,14 +205,26 @@ class BookingController extends Controller
 
     public function hotelPage()
     {
-        $hotelService = Service::where('type', '=', 'hotel')->get();
+        $hotelService = Service::where('type', '=', 'hotel')
+        ->with(['ratings' => function ($query) {
+            $query->select('service_id', 
+                DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+                DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
+            )->groupBy('service_id');
+        }])
+        ->get();
         return view('hotel', compact('hotelService'));
     }
 
 
     public function filterHotel(Request $request)
     {
-        $query = Service::where('type', 'hotel');
+        $query = Service::where('type', 'hotel')->with(['ratings' => function ($query) {
+            $query->select('service_id', 
+                DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+                DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
+            )->groupBy('service_id');
+        }]);
     
         if (!empty($request->going_to)) {
             $query->where('going_to', $request->going_to);

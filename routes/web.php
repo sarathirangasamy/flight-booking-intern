@@ -49,6 +49,7 @@ Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.s
     Route::post('/admin/service/store', [ServiceController::class, 'store'])->name('service.store');
     Route::delete('/admin/service/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
     Route::get('/flights/{id}', [ServiceController::class, 'showFlightDetails'])->name('service.flight.show');
+    Route::get('/hotels/{id}', [ServiceController::class, 'showHotelDetails'])->name('service.hotel.show');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::post('/admin/bookings/update-status/{id}', [AdminController::class, 'updateBookingStatus'])->name('admin.bookings.updateStatus');
 

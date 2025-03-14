@@ -366,7 +366,7 @@
 		</section>
 
 
-        <section class="pt-0 pb-5">
+        <!-- <section class="pt-0 pb-5">
 			<div class="container">
 
 				<div class="row align-items-center justify-content-between mb-3">
@@ -499,7 +499,7 @@
 
 				</div>
 			</div>
-		</section>
+		</section> -->
 
 
         <footer class="footer skin-light-footer">
