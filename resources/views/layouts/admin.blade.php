@@ -66,7 +66,7 @@
         <div class="border-right" id="sidebar-wrapper">
             <div  class="sidebar-heading text-center py-2 fs-6 fw-bold text-uppercase">
                 <a href="{{ route('home') }}" class="text-decoration-none text-white">
-                <i class="fas fa-user-shield"></i> Geo Trip
+                <i class="fas fa-user-shield"></i> Airlines Booking
             </a>
             </div>
             <div class="list-group list-group-flush">

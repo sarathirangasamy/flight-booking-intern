@@ -35,8 +35,11 @@
         <div class="container">
             <nav id="navigation" class="navigation navigation-landscape">
                 <div class="nav-header">
-                    <a class="nav-brand" href="#"><img src="assets/img/logo.png" class="logo" alt=""></a>
-                    <div class="nav-toggle"></div>
+                <a class="nav-brand" href="#" style="background: linear-gradient(to right, #ff0000, #ff6a00); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: bold;">
+                    Airlines Booking
+                </a>
+
+                <div class="nav-toggle"></div>
                     <div class="mobile_nav">
                         <ul>
                             <li class="currencyDropdown me-2">

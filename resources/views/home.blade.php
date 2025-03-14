@@ -40,7 +40,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-xl-9 col-lg-10 col-md-12 col-sm-12">
                             <div class="position-relative text-center mb-5">
-                                <h1>Starts Your Trip with <span class="position-relative z-4">GeoTrip<span
+                                <h1>Starts Your Trip with <span class="position-relative z-4">Airlines Booking<span
                                             class="position-absolute top-50 start-50 translate-middle d-none d-md-block mt-4">
                                             <svg width="185px" height="23px" viewBox="0 0 445.5 23">
                                                 <path class="fill-white opacity-7"
@@ -188,7 +188,7 @@
     </div>
 
 
-        <section class="pt-4 pb-0">
+        <!-- <section class="pt-4 pb-0">
 			<div class="container container-custom.container">
 				<div class="row justify-content-between gy-4 gx-xl-4 gx-lg-3 gx-md-3 gx-4">
 
@@ -272,7 +272,7 @@
 
 				</div>
 			</div>
-		</section>
+		</section> -->
 
         <section class="py-5">
 			<div class="container">
@@ -510,8 +510,10 @@
 						<div class="col-lg-3 col-md-4">
 							<div class="footer-widget">
 								<div class="d-flex align-items-start flex-column mb-3">
-									<div class="d-inline-block"><img src="assets/img/logo.png" class="img-fluid" width="160" alt="Footer Logo">
-									</div>
+								<div class="d-inline-block">
+									<h4 class="fw-bold text-primary">Airlines Booking</h4>
+								</div>
+
 								</div>
 								<div class="footer-add pe-xl-3">
 									<p>We make your dream more beautiful & enjoyful with lots of happiness.</p>
@@ -602,7 +604,7 @@
 					<div class="row align-items-center justify-content-between">
 
 						<div class="col-xl-6 col-lg-6 col-md-6">
-							<p class="mb-0">© 2023 GeoTrip Design by Themezhub.</p>
+							<p class="mb-0">© 2023 Airlines Booking Design by Themezhub.</p>
 						</div>
 
 						<div class="col-xl-6 col-lg-6 col-md-6">
@@ -714,6 +716,7 @@
 
 
         <script>
+
           document.querySelector(".search-btn").addEventListener("click", function () {
 			// Get trip type (radio)
 			let tripType = document.querySelector("input[name='trip']:checked").value;
@@ -827,23 +830,27 @@
 
 
 		document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".book-now-btn").forEach(button => {
-            button.addEventListener("click", function () {
-				document.getElementById("flight_id").value = this.getAttribute("data-flight-id");
-                document.getElementById("user_id").value = this.getAttribute("data-user-id");
-                document.getElementById("leaving_from").value = this.getAttribute("data-leaving-from");
-                document.getElementById("going_to").value = this.getAttribute("data-going-to");
-                document.getElementById("trip_type").value = this.getAttribute("data-trip-type");
-                document.getElementById("amount").value = this.getAttribute("data-amount");
+    document.querySelectorAll(".book-now-btn").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Stop event from bubbling to parent
+            event.preventDefault();  // Prevent the <a> tag from navigating
 
+            document.getElementById("flight_id").value = this.getAttribute("data-flight-id");
+            document.getElementById("user_id").value = this.getAttribute("data-user-id");
+            document.getElementById("leaving_from").value = this.getAttribute("data-leaving-from");
+            document.getElementById("going_to").value = this.getAttribute("data-going-to");
+            document.getElementById("trip_type").value = this.getAttribute("data-trip-type");
+            document.getElementById("amount").value = this.getAttribute("data-amount");
 
-				document.getElementById("leaving_from_display").textContent = this.getAttribute("data-leaving-from");
+            document.getElementById("leaving_from_display").textContent = this.getAttribute("data-leaving-from");
             document.getElementById("going_to_display").textContent = this.getAttribute("data-going-to");
             document.getElementById("trip_type_display").textContent = this.getAttribute("data-trip-type");
             document.getElementById("amount_display").textContent = this.getAttribute("data-amount");
-            });
         });
     });
+});
+
+
 </script>
 
 @endsection
