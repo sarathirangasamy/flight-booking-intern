@@ -769,7 +769,7 @@
                     let hotelCard = `
                       <div class="carousel-cell">
 						<div class="pop-touritem">
-							<a href="{{ route('service.hotel.show', ['id' => $hotel->id]) }}" class="card rounded-3 border br-dashed m-0">
+							<a href="/hotels/${hotel.id}" class="card rounded-3 border br-dashed m-0">
 								<div class="flight-thumb-wrapper">
 									<div class="popFlights-item-overHidden">
 										<img src="assets/img/hotel/hotel-${index + 1}.jpg" class="img-fluid" alt="">

@@ -554,7 +554,7 @@
                     let carHtml = `
                         <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
                             <div class="pop-touritem">
-                                <a href=""{{ route('service.car.show', ['id' => $car->id]) }}"" class="card rounded-3 shadow-wrap m-0">
+                                <a href="/cars/${car.id}" class="card rounded-3 shadow-wrap m-0">
                                     <div class="flight-thumb-wrapper">
                                         <div class="popFlights-item-overHidden">
                                             <img src="assets/img/car.jpg" class="img-fluid" alt="">
