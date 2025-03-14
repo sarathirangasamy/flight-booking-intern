@@ -292,65 +292,52 @@
 				</div>
 
 				<div class="row  gy-4 gx-3 default-flights">
-                    @foreach($flightsService as $key => $flight)
-                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
-                            <div class="pop-touritem">
-                                <a href="#" class="card rounded-3 border br-dashed h-100 m-0">
-                                    <div class="flight-thumb-wrapper">
-                                        <div class="popFlights-item-overHidden">
-                                            <img src="assets/img/destination/tr-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="touritem-middle position-relative p-3">
-                                        <div class="touritem-flexxer">
-                                            <h4 class="city fs-6 m-0 fw-bold">
-                                                <span>{{ $flight->leaving_from }}</span>
-                                                <span class="svg-icon svg-icon-muted svg-icon-2hx px-1">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z"
-                                                            fill="currentColor" />
-                                                        <path opacity="0.3"
-                                                            d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z"
-                                                            fill="currentColor" />
-                                                    </svg>
-                                                </span>
-                                                <span>{{ $flight->going_to }}</span>
-                                            </h4>
-                                            <p class="detail ellipsis-container">
-                                                <span class="ellipsis-item__normal">{{ str_replace('_', ' ', $flight->trip_type) }}
-                                                - trip</span>
-                                                <span class="separate ellipsis-item__normal"></span>
+				@foreach($flightsService as $key => $flight)
+					<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+						<a href="{{ route('service.flight.show', ['id' => $flight->id]) }}" class="text-decoration-none">
+							<div class="card rounded-3 border br-dashed h-100 m-0">
+								<div class="flight-thumb-wrapper">
+									<div class="popFlights-item-overHidden">
+										<img src="assets/img/destination/tr-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
+									</div>
+								</div>
+								<div class="touritem-middle position-relative p-3">
+									<div class="touritem-flexxer">
+										<h4 class="city fs-6 m-0 fw-bold">
+											<span>{{ $flight->leaving_from }}</span>
+											<span class="svg-icon svg-icon-muted svg-icon-2hx px-1">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z" fill="currentColor" />
+													<path opacity="0.3" d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z" fill="currentColor" />
+												</svg>
+											</span>
+											<span>{{ $flight->going_to }}</span>
+										</h4>
+										<p class="detail ellipsis-container">
+											<span class="ellipsis-item__normal">{{ str_replace('_', ' ', $flight->trip_type) }} - trip</span>
+											<span class="ellipsis-item">{{ $flight->no_of_days }} days</span>
+										</p>
+										<p>Rating:
+											@php
+												$total_rating = $flight->ratings->first()->total_rating ?? 0;
+												$total_reviews = $flight->ratings->first()->total_reviews ?? 0;
+												$average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
+											@endphp
 
-                                                
-                                                <span class="ellipsis-item">{{ $flight->no_of_days }} days</span>
-                                            </p>
+											@for ($i = 1; $i <= 5; $i++)
+												<i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
+											@endfor
+											({{ $total_reviews }} reviews)
+										</p>
+									</div>
 
-											<p>Rating: 
-													@php
-														$total_rating = $flight->ratings->first()->total_rating ?? 0;
-														$total_reviews = $flight->ratings->first()->total_reviews ?? 0;
-														$average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
-													@endphp
-
-													@for ($i = 1; $i <= 5; $i++)
-														@if ($i <= $average_rating)
-															<i class="fa fa-star text-warning"></i>  <!-- Full Star -->
-														@else
-															<i class="fa fa-star text-muted"></i>   <!-- Empty Star -->
-														@endif
-													@endfor
-													({{ $total_reviews }} reviews)
-												</p>
-
-
-                                        </div>
-
-
-                                        <div class="flight-foots d-flex justify-content-between align-items-center">
+									<div class="flight-foots d-flex justify-content-between align-items-center">
 										<h5 class="fs-5 low-price m-0">
-											<span class="tag-span">From</span> 
-											<span class="price">₹{{ $flight->amount }}</span>
+											<span class="tag-span">From</span>
+											<div class="d-flex align-items-center">
+												<div class="text-dark fw-bold fs-5">₹{{ $flight->amount }}</div>
+												<div class="text-muted-2 fw-medium text-decoration-line-through ms-2 fs-6">₹{{ $flight->discount_amount }}</div>
+											</div>
 										</h5>
 										<button class="btn btn-primary btn-sm book-now-btn pt-1 py-0" data-bs-toggle="modal" data-bs-target="#flightBookingModal"
 											data-flight-id="{{ $flight->id }}" data-user-id="{{ auth()->user()->id ?? '' }}"
@@ -360,14 +347,12 @@
 											Book Now
 										</button>
 									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				@endforeach
 
-                                    </div>
-                                </a>
-
-								
-                            </div>
-                        </div>
-                    @endforeach
 				</div>
 
 
@@ -780,38 +765,56 @@
 						flightsContainer.append(`
 							<div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
 								<div class="pop-touritem">
-									<a href="flight-search.html" class="card rounded-3 border br-dashed h-100 m-0">
+									<a href="{{ route('service.flight.show', ['id' => $flight->id]) }}" class="card rounded-3 border br-dashed h-100 m-0 text-decoration-none">
 										<div class="flight-thumb-wrapper">
-											<img src="assets/img/destination/tr-${index + 1}.jpg" class="img-fluid" alt="">
+											<img src="assets/img/destination/tr-{{ $key + 1 }}.jpg" class="img-fluid" alt="">
 										</div>
 										<div class="touritem-middle position-relative p-3">
 											<div class="touritem-flexxer">
 												<h4 class="city fs-6 m-0 fw-bold">
-													<span>${flight.leaving_from}</span>
+													<span>{{ $flight->leaving_from }}</span>
 													<span class="svg-icon svg-icon-muted svg-icon-2hx px-1">
 														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path d="M17.4 7H4C3.4 7 3 7.4 3 8C3 8.6 3.4 9 4 9H17.4V7ZM6.60001 15H20C20.6 15 21 15.4 21 16C21 16.6 20.6 17 20 17H6.60001V15Z" fill="currentColor" />
 															<path opacity="0.3" d="M17.4 3V13L21.7 8.70001C22.1 8.30001 22.1 7.69999 21.7 7.29999L17.4 3ZM6.6 11V21L2.3 16.7C1.9 16.3 1.9 15.7 2.3 15.3L6.6 11Z" fill="currentColor" />
 														</svg>
 													</span>
-													<span>${flight.going_to}</span>
+													<span>{{ $flight->going_to }}</span>
 												</h4>
 												<p class="detail ellipsis-container">
-													<span class="ellipsis-item__normal">${flight.trip_type.replace('_', ' ')} - trip</span>
-													<span class="separate ellipsis-item__normal"></span>
-													<span class="ellipsis-item">3 days</span>
+													<span class="ellipsis-item__normal">{{ str_replace('_', ' ', $flight->trip_type) }} - trip</span>
+													<span class="ellipsis-item">{{ $flight->no_of_days }} days</span>
+												</p>
+
+												<!-- Rating System -->
+												<p>Rating:
+													@php
+														$total_rating = $flight->ratings->first()->total_rating ?? 0;
+														$total_reviews = $flight->ratings->first()->total_reviews ?? 0;
+														$average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
+													@endphp
+
+													@for ($i = 1; $i <= 5; $i++)
+														<i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
+													@endfor
+													({{ $total_reviews }} reviews)
 												</p>
 											</div>
+
 											<div class="flight-foots">
 												<h5 class="fs-5 low-price m-0">
 													<span class="tag-span">From</span>
-													<span class="price">₹${flight.amount}</span>
+													<div class="d-flex align-items-center">
+														<div class="text-dark fw-bold fs-5">₹{{ $flight->amount }}</div>
+														<div class="text-muted-2 fw-medium text-decoration-line-through ms-2 fs-6">₹{{ $flight->discount_amount }}</div>
+													</div>
 												</h5>
 											</div>
 										</div>
 									</a>
 								</div>
 							</div>
+
 						`);
 					});
 				} else {

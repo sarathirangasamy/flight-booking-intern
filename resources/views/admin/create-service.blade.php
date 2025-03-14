@@ -94,9 +94,10 @@
                 </div>
 
                 <div class="col-md-6">
-                    <label>Adults</label>
-                    <input type="number" name="adults" class="form-control">
+                    <label>Discount Amount</label>
+                    <input type="number" step="0.01" name="discount_amount" class="form-control">
                 </div>
+
             </div>
 
             <div class="row mt-3">
@@ -111,6 +112,12 @@
             </div>
 
             <div class="row mt-3">
+
+            <div class="col-md-6">
+                    <label>Adults</label>
+                    <input type="number" name="adults" class="form-control">
+                </div>
+                
                 <div class="col-md-6">
                     <label>No of Days</label>
                     <input type="number" step="0.01" name="no_of_days" class="form-control">

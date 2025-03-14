@@ -86,6 +86,7 @@ class ServiceController extends Controller
             $booking->return_date = $validated['return_date'];
             $booking->class_type = $validated['class_type'];
             $booking->amount = $validated['amount'];
+            $booking->discount_amount = $validated['discount_amount'];
             $booking->no_of_days = $validated['no_of_days'];
             $booking->adults = $validated['adults'];
             $booking->children = $validated['children'];
@@ -133,6 +134,23 @@ class ServiceController extends Controller
     public function show(Service $service)
     {
         //
+    }
+
+
+    public function showFlightDetails($id)
+    {
+        $flight = Service::with(['ratings' => function ($query) {
+        $query->select(
+            'service_id', 
+            \DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+            \DB::raw('COALESCE(COUNT(id), 0) as total_reviews'),
+            \DB::raw('GROUP_CONCAT(description SEPARATOR " || ") as descriptions') // Fetch multiple descriptions
+        )->groupBy('service_id');
+    }])->findOrFail($id);
+    
+    return view('flight.show', compact('flight'));
+    
+        
     }
 
     /**
