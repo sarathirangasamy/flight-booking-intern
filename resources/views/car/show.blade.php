@@ -56,21 +56,23 @@
         </div>
     </div>
 
-   <!-- Reviews Section -->
-<div class="mt-5">
-    <h3>Customer Reviews</h3>
-    @if(count($reviews) > 0 && $reviews[0] != "")
-        <ul class="list-unstyled">
-            @foreach ($reviews as $review)
-                <li class="d-flex align-items-center mb-2">
-                    <i class="fa fa-comment text-primary me-2"></i>  <!-- Comment Icon -->
-                    {{ $review }}
-                </li>
-            @endforeach
-        </ul>
-    @else
-        <p>No reviews yet.</p>
-    @endif
-</div>
+    <!-- Reviews Section -->
+    <div class="mt-5">
+        <h3>Customer Reviews</h3>
+        @if($car->ratings->isNotEmpty())
+            <ul class="list-unstyled">
+                @foreach ($car->ratings as $rating)
+                    <li class="d-flex align-items-center mb-2">
+                        <i class="fa fa-user-circle text-primary me-2"></i>
+                        <strong>{{ $rating->user->name ?? 'Anonymous' }}</strong>: 
+                        <span>{{ $rating->description }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        @else
+            <p>No reviews yet.</p>
+        @endif
+    </div>
+
 
 @endsection

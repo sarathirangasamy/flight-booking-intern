@@ -139,52 +139,37 @@ class ServiceController extends Controller
 
     public function showFlightDetails($id)
     {
-        $flight = Service::with(['ratings' => function ($query) {
-        $query->select(
-            'service_id', 
-            \DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
-            \DB::raw('COALESCE(COUNT(id), 0) as total_reviews'),
-            \DB::raw('GROUP_CONCAT(description SEPARATOR " || ") as descriptions') // Fetch multiple descriptions
-        )->groupBy('service_id');
-    }])->findOrFail($id);
+        $flight = Service::with(['ratings.user']) // Eager load user with ratings
+            ->withCount('ratings as total_reviews') // Count total reviews
+            ->withSum('ratings as total_rating', 'rating') // Sum of ratings
+            ->findOrFail($id);
     
-    return view('flight.show', compact('flight'));
-    
-        
+        return view('flight.show', compact('flight'));
     }
+    
 
 
     public function showHotelDetails($id)
     {
-        $hotel = Service::with(['ratings' => function ($query) {
-        $query->select(
-            'service_id', 
-            \DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
-            \DB::raw('COALESCE(COUNT(id), 0) as total_reviews'),
-            \DB::raw('GROUP_CONCAT(description SEPARATOR " || ") as descriptions') // Fetch multiple descriptions
-        )->groupBy('service_id');
-    }])->findOrFail($id);
+        $hotel = Service::with(['ratings.user']) // Load user with ratings
+            ->withCount('ratings as total_reviews') // Count total reviews
+            ->withSum('ratings as total_rating', 'rating') // Sum of ratings
+            ->findOrFail($id);
     
-    return view('hotel.show', compact('hotel'));
+        return view('hotel.show', compact('hotel'));
+    }
     
-        
+
+        public function showCarDetails($id)
+    {
+        $car = Service::with(['ratings.user']) // Load user with ratings
+            ->withCount('ratings as total_reviews') // Count total reviews
+            ->withSum('ratings as total_rating', 'rating') // Sum of ratings
+            ->findOrFail($id);
+
+        return view('car.show', compact('car'));
     }
 
-    public function showCarDetails($id)
-    {
-        $car = Service::with(['ratings' => function ($query) {
-        $query->select(
-            'service_id', 
-            \DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
-            \DB::raw('COALESCE(COUNT(id), 0) as total_reviews'),
-            \DB::raw('GROUP_CONCAT(description SEPARATOR " || ") as descriptions')
-            )->groupBy('service_id');
-        }])->findOrFail($id);
-    
-    return view('car.show', compact('car'));
-    
-        
-    }
 
     /**
      * Show the form for editing the specified resource.

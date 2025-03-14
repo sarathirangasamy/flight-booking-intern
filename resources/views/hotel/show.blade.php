@@ -25,16 +25,20 @@
                 </p>
 
                 @if($hotel->ratings->isNotEmpty())
-                <p><strong>Reviews:</strong></p>
-                <ul class="list-unstyled">
-                    @foreach($hotel->ratings as $rating)
-                        <li class="d-flex align-items-center">
-                            <i class="fa fa-comment text-primary me-2"></i>  <!-- Comment Icon -->
-                            {{ $rating->descriptions }}
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
+                    <p><strong>Reviews:</strong></p>
+                    <ul class="list-unstyled">
+                        @foreach($hotel->ratings as $rating)
+                            <li class="d-flex align-items-center">
+                                <i class="fa fa-user-circle text-primary me-2"></i>  
+                                <strong>{{ $rating->user->name ?? 'Anonymous' }}</strong>: 
+                                <span>{{ $rating->description }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted">No reviews yet.</p>
+                @endif
+
             </div>
 
             <!-- Facilities -->

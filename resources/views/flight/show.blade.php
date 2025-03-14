@@ -17,37 +17,35 @@
                     <span class="text-muted text-decoration-line-through fs-6">₹{{ $flight->discount_amount }}</span>
                 </h5>
 
+                <!-- Rating Display -->
                 <p>Rating:
                     @php
-                        $total_rating = $flight->ratings->first()->total_rating ?? 0;
-                        $total_reviews = $flight->ratings->first()->total_reviews ?? 0;
+                        $total_rating = $flight->ratings->sum('total_rating') ?? 0;
+                        $total_reviews = $flight->ratings->sum('total_reviews') ?? 0;
                         $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
                     @endphp
 
                     @for ($i = 1; $i <= 5; $i++)
-                        @if ($i <= $average_rating)
-                            <i class="fa fa-star text-warning"></i>  <!-- Full Star -->
-                        @else
-                            <i class="fa fa-star text-muted"></i>   <!-- Empty Star -->
-                        @endif
+                        <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
                     @endfor
                     ({{ $total_reviews }} reviews)
                 </p>
 
+                <!-- Display User Reviews -->
                 @if($flight->ratings->isNotEmpty())
-                <p><strong>Reviews:</strong></p>
-                <ul class="list-unstyled">
-                    @foreach($flight->ratings as $rating)
-                        <li class="d-flex align-items-center">
-                            <i class="fa fa-comment text-primary me-2"></i>  <!-- Comment Icon -->
-                            {{ $rating->descriptions }}
-                        </li>
-                    @endforeach
-                </ul>
-            @endif
-
-
-
+                    <p><strong>Reviews:</strong></p>
+                    <ul class="list-unstyled">
+                        @foreach($flight->ratings as $rating)
+                            <li class="d-flex align-items-center">
+                                <i class="fa fa-user-circle text-primary me-2"></i>  
+                                <strong>{{ $rating->user->name ?? 'Unknown User' }}</strong>: 
+                                <span>{{ $rating->description }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p class="text-muted">No reviews yet.</p>
+                @endif
             </div>
         </div>
     </div>
