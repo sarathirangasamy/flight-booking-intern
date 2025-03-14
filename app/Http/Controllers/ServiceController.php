@@ -170,6 +170,22 @@ class ServiceController extends Controller
         
     }
 
+    public function showCarDetails($id)
+    {
+        $car = Service::with(['ratings' => function ($query) {
+        $query->select(
+            'service_id', 
+            \DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+            \DB::raw('COALESCE(COUNT(id), 0) as total_reviews'),
+            \DB::raw('GROUP_CONCAT(description SEPARATOR " || ") as descriptions')
+            )->groupBy('service_id');
+        }])->findOrFail($id);
+    
+    return view('car.show', compact('car'));
+    
+        
+    }
+
     /**
      * Show the form for editing the specified resource.
      */

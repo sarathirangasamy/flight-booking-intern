@@ -144,8 +144,7 @@ class BookingController extends Controller
 
     public function filterFlights(Request $request)
     {
-        $query = Service::where('type', 'flight')->whereHas('ratings') 
-        ->with(['ratings' => function ($query) {
+        $query = Service::where('type', 'flight')->with(['ratings' => function ($query) {
             $query->select('service_id', 
                 DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
                 DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
@@ -254,13 +253,23 @@ class BookingController extends Controller
 
     public function carPage()
     {
-        $carServices = Service::where('type', '=', 'car_rental')->get();
+        $carServices = Service::where('type', '=', 'car_rental')->with(['ratings' => function ($query) {
+            $query->select('service_id', 
+                DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+                DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
+            )->groupBy('service_id');
+        }])->get();
         return view('car', compact('carServices'));
     }
 
     public function filterCars(Request $request)
     {
-        $query = Service::where('type', 'car_rental');
+        $query = Service::where('type', 'car_rental')->with(['ratings' => function ($query) {
+            $query->select('service_id', 
+                DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
+                DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
+            )->groupBy('service_id');
+        }]);
     
         if (!empty($request->pickup_location)) {
             $query->where('pickup_location','=', $request->pickup_location);

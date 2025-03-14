@@ -50,6 +50,7 @@ Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.s
     Route::delete('/admin/service/{id}', [ServiceController::class, 'destroy'])->name('services.destroy');
     Route::get('/flights/{id}', [ServiceController::class, 'showFlightDetails'])->name('service.flight.show');
     Route::get('/hotels/{id}', [ServiceController::class, 'showHotelDetails'])->name('service.hotel.show');
+    Route::get('/cars/{id}', [ServiceController::class, 'showCarDetails'])->name('service.car.show');
     Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
     Route::post('/admin/bookings/update-status/{id}', [AdminController::class, 'updateBookingStatus'])->name('admin.bookings.updateStatus');
 

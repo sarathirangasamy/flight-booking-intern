@@ -370,7 +370,7 @@
 
 
 		<!-- ============================ Popular Location Start ================================== -->
-		<section class="py-5">
+		<!-- <section class="py-5">
 			<div class="container">
 
 				<div class="row align-items-center justify-content-between mb-3">
@@ -391,7 +391,6 @@
 					<div class="col-xl-12 col-lg-12 col-md-12 p-0">
 						<div class="main-carousel cols-4 dots-full">
 
-							<!-- Single Item -->
 							<div class="carousel-cell">
 								<div class="destination-blocks bg-white p-2 rounded border br-dashed">
 									<div class="destination-blocks-pics p-1">
@@ -412,7 +411,6 @@
 								</div>
 							</div>
 
-							<!-- Single Item -->
 							<div class="carousel-cell">
 								<div class="destination-blocks bg-white p-2 rounded border br-dashed">
 									<div class="destination-blocks-pics p-1">
@@ -433,7 +431,6 @@
 								</div>
 							</div>
 
-							<!-- Single Item -->
 							<div class="carousel-cell">
 								<div class="destination-blocks bg-white p-2 rounded border br-dashed">
 									<div class="destination-blocks-pics p-1">
@@ -454,7 +451,6 @@
 								</div>
 							</div>
 
-							<!-- Single Item -->
 							<div class="carousel-cell">
 								<div class="destination-blocks bg-white p-2 rounded border br-dashed">
 									<div class="destination-blocks-pics p-1">
@@ -475,7 +471,6 @@
 								</div>
 							</div>
 
-							<!-- Single Item -->
 							<div class="carousel-cell">
 								<div class="destination-blocks bg-white p-2 rounded border br-dashed">
 									<div class="destination-blocks-pics p-1">
@@ -496,7 +491,6 @@
 								</div>
 							</div>
 
-							<!-- Single Item -->
 							<div class="carousel-cell">
 								<div class="destination-blocks bg-white p-2 rounded border br-dashed">
 									<div class="destination-blocks-pics p-1">
@@ -521,7 +515,7 @@
 					</div>
 				</div>
 			</div>
-		</section>
+		</section> -->
 
         <footer class="footer skin-light-footer">
 			<div>
