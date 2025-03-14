@@ -50,18 +50,19 @@
                 </td>
 
                 <td>
-                    @if ($booking->status == 'pending')
+                    @if (($booking->status == 'pending') || ($booking->status == 'Confirmed'))
                         <form action="{{ route('admin.bookings.updateStatus', $booking->id) }}" method="POST">
                             @csrf
                             <select name="status" class="form-select" onchange="this.form.submit()">
                                 <option value="Pending" {{ $booking->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="Confirmed">Confirmed</option>
+                                <option value="Confirmed" {{ $booking->status == 'Confirmed' ? 'selected' : '' }}>Confirmed</option>
+                                <option value="Completed" {{ $booking->status == 'Completed' ? 'selected' : '' }}>Completed</option>
                                 <option value="Cancelled">Cancelled</option>
                             </select>
                         </form>
                     @else
                         <span class="badge 
-                            {{ $booking->status == 'Confirmed' ? 'bg-success' : '' }} 
+                            {{ $booking->status == 'Completed' ? 'bg-success' : '' }} 
                             {{ $booking->status == 'Cancelled' ? 'bg-danger' : '' }}">
                             {{ $booking->status }}
                         </span>

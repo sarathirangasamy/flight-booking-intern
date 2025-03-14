@@ -40,4 +40,9 @@ class Booking extends Model
     {
         return $this->belongsTo(Service::class);
     }
+
+    public function rating()
+    {
+        return $this->hasOne(Rating::class, 'booking_id');
+    }
 }

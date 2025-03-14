@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -36,6 +37,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 // Custom Registration for Admin
 Route::get('/admin/register', [RegisterController::class, 'showAdminRegisterForm'])->name('admin.register');
 Route::post('/admin/register', [RegisterController::class, 'registerAdmin']);
+
+//Rating
+Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
