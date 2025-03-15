@@ -69,34 +69,7 @@
                                 </div>
                                 <div class="flx-end d-flex align-items-center flex-wrap">
                                     <div class="px-sm-2 pb-3 pt-0 ps-0 mob-full">
-                                    <div class="booking-form__input guests-input">
-                                        <i class="fa-solid fa-user-clock text-muted me-2"></i><button name="guests-btn"
-                                        id="guests-input-btn">1
-                                        Guest</button>
-                                        <div class="guests-input__options" id="guests-input-options">
-                                        <div>
-                                            <span class="guests-input__ctrl minus" id="adults-subs-btn"><i
-                                                class="fa-solid fa-minus"></i></span>
-                                            <span class="guests-input__value"><span id="guests-count-adults">1</span>Adults</span>
-                                            <span class="guests-input__ctrl plus" id="adults-add-btn"><i
-                                                class="fa-solid fa-plus"></i></span>
-                                        </div>
-                                        <div>
-                                            <span class="guests-input__ctrl minus" id="children-subs-btn"><i
-                                                class="fa-solid fa-minus"></i></span>
-                                            <span class="guests-input__value"><span id="guests-count-children">0</span>Children</span>
-                                            <span class="guests-input__ctrl plus" id="children-add-btn"><i
-                                                class="fa-solid fa-plus"></i></span>
-                                        </div>
-                                        <div>
-                                            <span class="guests-input__ctrl minus" id="room-subs-btn"><i
-                                                class="fa-solid fa-minus"></i></span>
-                                            <span class="guests-input__value"><span id="guests-count-room">0</span>Rooms</span>
-                                            <span class="guests-input__ctrl plus" id="room-add-btn"><i
-                                                class="fa-solid fa-plus"></i></span>
-                                        </div>
-                                        </div>
-                                    </div>
+                                    
                                     </div>
                                     <div class="ps-1 pb-3 pt-0 mob-full">
                                     <div class="dropdowns">
@@ -732,9 +705,9 @@
 			let returnDate = document.querySelector("input[placeholder='Return..']").value;
 
 			// Get guest counts
-			let adults = document.getElementById("guests-count-adults").innerText;
-			let children = document.getElementById("guests-count-children").innerText;
-			let rooms = document.getElementById("guests-count-room").innerText;
+			// let adults = document.getElementById("guests-count-adults").innerText;
+			// let children = document.getElementById("guests-count-children").innerText;
+			// let rooms = document.getElementById("guests-count-room").innerText;
 
 			// Get travel class selection
 			let travelClass = document.querySelector(".dropdowns .selected").innerText;
@@ -748,9 +721,9 @@
 				going_to: goingTo !== "" ? goingTo : null,
 				trip_type: tripType !== "" ? tripType : null,
 				class_type: travelClass !== "" ? travelClass : null,
-				adults: adults > 0 ? adults : null,
-				children: children > 0 ? children : null,
-				rooms: rooms > 0 ? rooms : null,
+				// adults: adults > 0 ? adults : null,
+				// children: children > 0 ? children : null,
+				// rooms: rooms > 0 ? rooms : null,
 				departure_date: departureDate !== "" ? departureDate : null,
 				return_date: returnDate !== "" ? returnDate : null,
 

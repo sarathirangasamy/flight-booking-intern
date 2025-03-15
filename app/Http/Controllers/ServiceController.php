@@ -88,9 +88,9 @@ class ServiceController extends Controller
             $booking->amount = $validated['amount'];
             $booking->discount_amount = $validated['discount_amount'];
             $booking->no_of_days = $validated['no_of_days'];
-            $booking->adults = $validated['adults'];
-            $booking->children = $validated['children'];
-            $booking->rooms = $validated['rooms'];
+            // $booking->adults = $validated['adults'];
+            // $booking->children = $validated['children'];
+            // $booking->rooms = $validated['rooms'];
         }
     
         // Hotel fields

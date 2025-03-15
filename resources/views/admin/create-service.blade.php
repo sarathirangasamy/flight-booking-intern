@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container mt-4">
-    <h2>Create Booking</h2>
+    <h2>Create Service</h2>
     
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -100,23 +100,21 @@
 
             </div>
 
-            <div class="row mt-3">
+            <!-- <div class="row mt-3">
                 <div class="col-md-6">
                     <label>Children</label>
                     <input type="number" name="children" class="form-control">
                 </div>
+
                 <div class="col-md-6">
-                    <label>Rooms</label>
-                    <input type="number" name="rooms" class="form-control">
-                </div>
-            </div>
-
-            <div class="row mt-3">
-
-            <div class="col-md-6">
                     <label>Adults</label>
                     <input type="number" name="adults" class="form-control">
                 </div>
+            </div> -->
+
+            <div class="row mt-3">
+
+            
                 
                 <div class="col-md-6">
                     <label>No of Days</label>
