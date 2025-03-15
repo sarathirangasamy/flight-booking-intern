@@ -139,9 +139,9 @@ class ServiceController extends Controller
 
     public function showFlightDetails($id)
     {
-        $flight = Service::with(['ratings.user']) // Eager load user with ratings
-            ->withCount('ratings as total_reviews') // Count total reviews
-            ->withSum('ratings as total_rating', 'rating') // Sum of ratings
+        $flight = Service::with(['ratings.user']) 
+            ->withCount('ratings as total_reviews')
+            ->withSum('ratings as total_rating', 'rating')
             ->findOrFail($id);
     
         return view('flight.show', compact('flight'));
@@ -151,9 +151,9 @@ class ServiceController extends Controller
 
     public function showHotelDetails($id)
     {
-        $hotel = Service::with(['ratings.user']) // Load user with ratings
-            ->withCount('ratings as total_reviews') // Count total reviews
-            ->withSum('ratings as total_rating', 'rating') // Sum of ratings
+        $hotel = Service::with(['ratings.user']) 
+            ->withCount('ratings as total_reviews')
+            ->withSum('ratings as total_rating', 'rating')
             ->findOrFail($id);
     
         return view('hotel.show', compact('hotel'));
