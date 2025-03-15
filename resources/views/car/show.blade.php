@@ -11,10 +11,9 @@
 
             <!-- Rating Section -->
             @php
-                $totalRating = $car->ratings[0]->total_rating ?? 0;
-                $totalReviews = $car->ratings[0]->total_reviews ?? 0;
-                $avgRating = $totalReviews > 0 ? round($totalRating / $totalReviews) : 0;
-                $reviews = explode(' || ', $car->ratings[0]->descriptions ?? '');
+                $totalRating = $car->total_rating ?? 0; // Get total rating sum
+                $totalReviews = $car->total_reviews ?? 0; // Get total review count
+                $avgRating = $totalReviews > 0 ? round($totalRating / $totalReviews) : 0; // Calculate average
             @endphp
 
             <div class="mt-2">
@@ -25,6 +24,7 @@
                     ({{ $totalReviews }} reviews)
                 </p>
             </div>
+
 
             <!-- Car Type -->
             @php

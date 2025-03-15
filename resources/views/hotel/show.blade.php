@@ -11,18 +11,20 @@
             
             <!-- Rating System -->
             <div class="mt-2">
-                <p>Rating:
-                    @php
-                        $total_rating = $hotel->ratings->first()->total_rating ?? 0;
-                        $total_reviews = $hotel->ratings->first()->total_reviews ?? 0;
-                        $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0;
-                    @endphp
+                           <!-- Rating Display -->
+                           <p>Rating:
+                        @php
+                            $total_rating = $hotel->total_rating ?? 0; // Total rating sum
+                            $total_reviews = $hotel->total_reviews ?? 0; // Total review count
+                            $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0; // Calculate average
+                        @endphp
 
-                    @for ($i = 1; $i <= 5; $i++)
-                        <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
-                    @endfor
-                    ({{ $total_reviews }} reviews)
-                </p>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
+                        @endfor
+                        ({{ $total_reviews }} reviews)
+                    </p>
+
 
                 @if($hotel->ratings->isNotEmpty())
                     <p><strong>Reviews:</strong></p>

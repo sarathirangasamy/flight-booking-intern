@@ -19,17 +19,17 @@
 
                 <!-- Rating Display -->
                 <p>Rating:
-    @php
-        $total_rating = $flight->total_rating ?? 0; // Get total rating sum
-        $total_reviews = $flight->total_reviews ?? 0; // Get total review count
-        $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0; // Calculate average
-    @endphp
+                    @php
+                        $total_rating = $flight->total_rating ?? 0; // Get total rating sum
+                        $total_reviews = $flight->total_reviews ?? 0; // Get total review count
+                        $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0; // Calculate average
+                    @endphp
 
-    @for ($i = 1; $i <= 5; $i++)
-        <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
-    @endfor
-    ({{ $total_reviews }} reviews)
-</p>
+                    @for ($i = 1; $i <= 5; $i++)
+                        <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
+                    @endfor
+                    ({{ $total_reviews }} reviews)
+                </p>
 
 
                 <!-- Display User Reviews -->
