@@ -123,125 +123,139 @@
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const openRatingModalButtons = document.querySelectorAll(".open-rating-modal");
-    const ratingModal = document.getElementById("ratingModal");
-    const bookingIdInput = document.getElementById("booking_id");
-    const serviceIdInput = document.getElementById("service_id");
-    const userIdInput = document.getElementById("user_id");
-    const descriptionInput = document.getElementById("description");
-    const ratingValueDisplay = document.getElementById("ratingValue");
-    const ratingInput = document.getElementById("rating");
-    const submitRatingButton = document.getElementById("submitRating");
+    document.addEventListener("DOMContentLoaded", function () {
+        const openRatingModalButtons = document.querySelectorAll(".open-rating-modal");
+        const ratingModal = document.getElementById("ratingModal");
+        const bookingIdInput = document.getElementById("booking_id");
+        const serviceIdInput = document.getElementById("service_id");
+        const userIdInput = document.getElementById("user_id");
+        const descriptionInput = document.getElementById("description");
+        const ratingValueDisplay = document.getElementById("ratingValue");
+        const ratingInput = document.getElementById("rating");
+        const submitRatingButton = document.getElementById("submitRating");
 
-    function showModal(modal) {
-        let bootstrapModal = new bootstrap.Modal(modal);
-        bootstrapModal.show();
-    }
-
-    function calculateRating(description) {
-        let cleanedText = description.toLowerCase().replace(/[.,!?]/g, "");
-        let words = cleanedText.split(/\s+/);
-
-        let rating = 3; // Default neutral rating
-
-        let positiveKeywords = { 
-            "excellent": 5, "awesome": 5, "perfect": 5, "outstanding": 5, "superb": 5, "super": 5, 
-            "amazing": 5, "wonderful": 5, "fantastic": 5, "exceptional": 5, "impressive": 5,
-            "great": 4, "good": 4, "nice": 4, "satisfactory": 4, "pleasant": 4, "delightful": 4, 
-            "lovely": 4, "fine": 4, "decent": 3, "okay": 3, "acceptable": 3, "fair": 3, 
-            "moderate": 3, "standard": 3
-        };
-
-        let negativeKeywords = { 
-            "bad": 1, "terrible": 1, "horrible": 1, "worst": 1, "awful": 1, "dreadful": 1, 
-            "pathetic": 1, "abysmal": 1, "poor": 2, "disappointing": 2, "not satisfied": 2, 
-            "subpar": 2, "mediocre": 2, "lackluster": 2, "underwhelming": 2, "unimpressive": 2, 
-            "frustrating": 2, "below average": 2, "insufficient": 2, "meh": 2
-        };
-
-
-        words.forEach(word => {
-            if (positiveKeywords[word]) rating = Math.max(rating, positiveKeywords[word]);
-            if (negativeKeywords[word]) rating = Math.min(rating, negativeKeywords[word]);
-        });
-
-        console.log("Generated Rating:", rating);
-        return rating;
-    }
-
-    openRatingModalButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            let bookingId = this.getAttribute("data-booking-id");
-            let serviceId = this.getAttribute("data-service-id");
-            let userId = this.getAttribute("data-user-id");
-
-            console.log("Opening modal for booking ID:", serviceId);
-
-            bookingIdInput.value = bookingId;
-            serviceIdInput.value = serviceId;
-            userIdInput.value = userId;
-            descriptionInput.value = "";
-            ratingValueDisplay.textContent = "-";
-            ratingInput.value = "";
-
-            showModal(ratingModal);
-        });
-    });
-
-    descriptionInput.addEventListener("input", function () {
-        let description = this.value.trim();
-        let rating = description ? calculateRating(description) : "-";
-        ratingValueDisplay.textContent = rating;
-        ratingInput.value = rating;
-    });
-
-submitRatingButton.addEventListener("click", function (e) {
-    e.preventDefault();
-
-    let formData = new FormData(document.getElementById("ratingForm"));
-
-    console.log("Submitting Form Data:");
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ": " + pair[1]);
-    }
-
-    fetch("{{ route('rating.store') }}", {
-        method: "POST",
-        headers: {
-            "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-        },
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log("Server Response:", data);
-        if (data.success) {
-            Swal.fire({
-                title: "Success!",
-                text: "Rating submitted successfully!",
-                icon: "success",
-                confirmButtonText: "OK"
-            }).then(() => {
-                location.reload();
-            });
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Failed to submit rating.",
-                icon: "error",
-                confirmButtonText: "Try Again"
-            });
+        function showModal(modal) {
+            let bootstrapModal = new bootstrap.Modal(modal);
+            bootstrapModal.show();
         }
 
-    })
-    .catch(error => {
-        console.error("Fetch Error:", error);
-        alert("Something went wrong!");
-    });
-});
+        function calculateRating(description) {
+    let cleanedText = description.toLowerCase().replace(/[.,!?]/g, "");
+    let words = cleanedText.split(/\s+/);
 
-});
+    let positiveKeywords = { 
+        "excellent": 5, "awesome": 5, "perfect": 5, "outstanding": 5, "superb": 5, "super": 5, 
+        "amazing": 5, "wonderful": 5, "fantastic": 5, "exceptional": 5, "impressive": 5,
+        "great": 4, "good": 4, "nice": 4, "satisfactory": 4, "pleasant": 4, "delightful": 4, 
+        "lovely": 4, "fine": 4, "decent": 3, "okay": 3, "acceptable": 3, "fair": 3, 
+        "moderate": 3, "standard": 3
+    };
+
+    let negativeKeywords = { 
+        "bad": 1, "terrible": 1, "horrible": 1, "worst": 1, "awful": 1, "dreadful": 1, 
+        "pathetic": 1, "abysmal": 1, "poor": 2, "disappointing": 2, "not satisfied": 2, 
+        "subpar": 2, "mediocre": 2, "lackluster": 2, "underwhelming": 2, "unimpressive": 2, 
+        "frustrating": 2, "below average": 2, "insufficient": 2, "meh": 2
+    };
+
+    let totalScore = 0;
+    let count = 0;
+
+    words.forEach(word => {
+        if (positiveKeywords[word]) {
+            totalScore += positiveKeywords[word];
+            count++;
+        }
+        if (negativeKeywords[word]) {
+            totalScore += negativeKeywords[word];
+            count++;
+        }
+    });
+
+    let averageRating = count > 0 ? totalScore / count : 3; 
+    let finalRating = Math.round(averageRating); 
+
+    return Math.min(Math.max(finalRating, 1), 5); 
+}
+
+// // Example Usage
+//         let feedback = "The service and outstanding but a bit disappointing";
+//         let rating = calculateRating(feedback);
+//         console.log("Calculated Rating:", rating);
+
+
+        openRatingModalButtons.forEach(button => {
+            button.addEventListener("click", function () {
+                let bookingId = this.getAttribute("data-booking-id");
+                let serviceId = this.getAttribute("data-service-id");
+                let userId = this.getAttribute("data-user-id");
+
+                console.log("Opening modal for booking ID:", serviceId);
+
+                bookingIdInput.value = bookingId;
+                serviceIdInput.value = serviceId;
+                userIdInput.value = userId;
+                descriptionInput.value = "";
+                ratingValueDisplay.textContent = "-";
+                ratingInput.value = "";
+
+                showModal(ratingModal);
+            });
+        });
+
+        descriptionInput.addEventListener("input", function () {
+            let description = this.value.trim();
+            let rating = description ? calculateRating(description) : "-";
+            ratingValueDisplay.textContent = rating;
+            ratingInput.value = rating;
+        });
+
+    submitRatingButton.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(document.getElementById("ratingForm"));
+
+        console.log("Submitting Form Data:");
+        for (let pair of formData.entries()) {
+            console.log(pair[0] + ": " + pair[1]);
+        }
+
+        fetch("{{ route('rating.store') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+            },
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Server Response:", data);
+            if (data.success) {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Rating submitted successfully!",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                }).then(() => {
+                    location.reload();
+                });
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Failed to submit rating.",
+                    icon: "error",
+                    confirmButtonText: "Try Again"
+                });
+            }
+
+        })
+        .catch(error => {
+            console.error("Fetch Error:", error);
+            alert("Something went wrong!");
+        });
+    });
+
+    });
 
 
 </script>
