@@ -162,9 +162,9 @@ class ServiceController extends Controller
 
         public function showCarDetails($id)
     {
-        $car = Service::with(['ratings.user']) // Load user with ratings
-            ->withCount('ratings as total_reviews') // Count total reviews
-            ->withSum('ratings as total_rating', 'rating') // Sum of ratings
+        $car = Service::with(['ratings.user']) 
+            ->withCount('ratings as total_reviews')
+            ->withSum('ratings as total_rating', 'rating')
             ->findOrFail($id);
 
         return view('car.show', compact('car'));
