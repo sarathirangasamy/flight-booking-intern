@@ -27,18 +27,13 @@
         <div id="flight_fields" class="booking-section d-none">
             <h4>Flight Booking</h4>
             <div class="row">
-                <div class="col-md-6">
+            <div class="col-md-6">
                     <label>Leaving From</label>
                     <select class="form-control" name="leaving_from">
                         <option value="">Select</option>
-                        <option value="ny">New York</option>
-                        <option value="sd">San Diego</option>
-                        <option value="sj">San Jose</option>
-                        <option value="ph">Philadelphia</option>
-                        <option value="nl">Nashville</option>
-                        <option value="sf">San Francisco</option>
-                        <option value="hu">Houston</option>
-                        <option value="sa">San Antonio</option>
+                        @foreach($FlightLocations as $location)
+                            <option value="{{ $location->name }}">{{ $location->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -52,17 +47,12 @@
 
             <div class="row mt-3">
                 <div class="col-md-6">
-                <label>Going To</label>
-                <select class="form-control" name="going_to">
+                    <label>Going To</label>
+                    <select class="form-control" name="going_to">
                         <option value="">Select</option>
-                        <option value="lv">Las Vegas</option>
-                        <option value="la">Los Angeles</option>
-                        <option value="kc">Kansas City</option>
-                        <option value="no">New Orleans</option>
-                        <option value="kc">Jacksonville</option>
-                        <option value="lb">Long Beach</option>
-                        <option value="cl">Columbus</option>
-                        <option value="cn">Canada</option>
+                        @foreach($FlightLocations as $location)
+                            <option value="{{ $location->name }}">{{ $location->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -142,14 +132,9 @@
                     <label>Going To</label>
                     <select class="form-control" name="going_to">
                         <option value="">Select</option>
-                        <option value="ny">New York</option>
-                        <option value="sd">San Diego</option>
-                        <option value="sj">San Jose</option>
-                        <option value="ph">Philadelphia</option>
-                        <option value="nl">Nashville</option>
-                        <option value="sf">San Francisco</option>
-                        <option value="hu">Houston</option>
-                        <option value="sa">San Antonio</option>
+                        @foreach($HotelLocations as $location)
+                            <option value="{{ $location->name }}">{{ $location->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -231,28 +216,19 @@
                     <label>Pickup Location</label>
                     <select class="form-control" name="pickup_location">
                         <option value="">Select</option>
-                        <option value="ny">New York</option>
-                        <option value="sd">San Diego</option>
-                        <option value="sj">San Jose</option>
-                        <option value="ph">Philadelphia</option>
-                        <option value="nl">Nashville</option>
-                        <option value="sf">San Francisco</option>
-                        <option value="hu">Houston</option>
-                        <option value="sa">San Antonio</option>
+                        @foreach($CarLocations as $location)
+                            <option value="{{ $location->name }}">{{ $location->name }}</option>
+                        @endforeach
                     </select>
                 </div>
+
                 <div class="col-md-6">
                     <label>Drop Location</label>
                     <select class="form-control" name="drop_location">
                         <option value="">Select</option>
-                        <option value="ny">New York</option>
-                        <option value="sd">San Diego</option>
-                        <option value="sj">San Jose</option>
-                        <option value="ph">Philadelphia</option>
-                        <option value="nl">Nashville</option>
-                        <option value="sf">San Francisco</option>
-                        <option value="hu">Houston</option>
-                        <option value="sa">San Antonio</option>
+                        @foreach($CarLocations as $location)
+                            <option value="{{ $location->name }}">{{ $location->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -306,7 +282,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary mt-3">Book Now</button>
+        <button type="submit" class="btn btn-primary mt-3">Submit</button>
 
     </form>
 </div>

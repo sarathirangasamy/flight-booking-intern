@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\Location;
 use App\Http\Requests\StoreServiceRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateServiceRequest;
@@ -14,7 +15,7 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = Service::all(); // Fetch all service data
+        $services = Service::all();
         return view('admin.view-service', compact('services'));
     }
 
@@ -24,7 +25,10 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return view('admin.create-service');
+        $data['FlightLocations'] = Location::where('type','=','flight')->get();
+        $data['HotelLocations'] = Location::where('type','=','hotel')->get();
+        $data['CarLocations'] = Location::where('type','=','car')->get();
+        return view('admin.create-service',$data);
 
     }
 
