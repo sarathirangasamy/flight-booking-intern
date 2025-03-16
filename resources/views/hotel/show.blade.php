@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    .progress {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom:0px
+}
+.progress-bar {
+    border-radius: 5px;
+}
+
+</style>
 <div class="container">
     <div class="row">
         <div class="col-md-8">
@@ -12,18 +25,46 @@
             <!-- Rating System -->
             <div class="mt-2">
                            <!-- Rating Display -->
-                           <p>Rating:
-                        @php
-                            $total_rating = $hotel->total_rating ?? 0; // Total rating sum
-                            $total_reviews = $hotel->total_reviews ?? 0; // Total review count
-                            $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0; // Calculate average
-                        @endphp
+                           <div class="row">
+    <!-- Left Side: Star Rating -->
+    <div class="col-md-6">
+        <p>Rating:</p>
+        @php
+            $total_rating = $hotel->total_rating ?? 0; // Get total rating sum
+            $total_reviews = $hotel->total_reviews ?? 0; // Get total review count
+            $average_rating = $total_reviews > 0 ? round($total_rating / $total_reviews) : 0; // Calculate average
+        @endphp
 
-                        @for ($i = 1; $i <= 5; $i++)
-                            <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
-                        @endfor
-                        ({{ $total_reviews }} reviews)
-                    </p>
+        @for ($i = 1; $i <= 5; $i++)
+            <i class="fa fa-star {{ $i <= $average_rating ? 'text-warning' : 'text-muted' }}"></i>
+        @endfor
+        <strong>({{ $total_reviews }} reviews)</strong>
+    </div>
+
+    <!-- Right Side: Rating Progress Bars -->
+    <div class="col-md-6">
+        @php
+            $total_reviews = $total_reviews > 0 ? $total_reviews : 1; // Avoid division by zero
+        @endphp
+
+        @foreach ([5, 4, 3, 2, 1] as $star)
+            @php
+                $percentage = round(($ratings_count[$star] / $total_reviews) * 100);
+            @endphp
+            <div class="d-flex align-items-center">
+                <span class="me-2">{{ $star }} <i class="fa fa-star text-warning"></i></span>
+                <div class="progress flex-grow-1" style="height: 10px;">
+                    <div class="progress-bar bg-warning" role="progressbar" 
+                         style="width: {{ $percentage }}%;" 
+                         aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+                <span class="ms-1">{{ $percentage }}%</span>
+            </div>
+        @endforeach
+    </div>
+</div>
+
 
 
                 @if($hotel->ratings->isNotEmpty())

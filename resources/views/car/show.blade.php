@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+
+<style>
+    .progress {
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom:0px
+}
+.progress-bar {
+    border-radius: 5px;
+}
+
+</style>
 <div class="container mt-5">
     <div class="row">
         <div class="col-lg-6">
@@ -10,20 +23,46 @@
             <h2 class="fw-bold">{{ $car->name }}</h2>
 
             <!-- Rating Section -->
-            @php
-                $totalRating = $car->total_rating ?? 0; // Get total rating sum
-                $totalReviews = $car->total_reviews ?? 0; // Get total review count
-                $avgRating = $totalReviews > 0 ? round($totalRating / $totalReviews) : 0; // Calculate average
-            @endphp
+            <div class="row align-items-center">
+                    <!-- Left Side: Star Rating -->
+                    <div class="col-md-6 d-flex align-items-center">
+                        <p class="mb-0 me-2">Rating:</p>
+                        @php
+                            $totalRating = $car->total_rating ?? 0;
+                            $totalReviews = $car->total_reviews ?? 0;
+                            $avgRating = $totalReviews > 0 ? round($totalRating / $totalReviews) : 0;
+                        @endphp
 
-            <div class="mt-2">
-                <p>Rating:
-                    @for ($i = 1; $i <= 5; $i++)
-                        <i class="fa fa-star {{ $i <= $avgRating ? 'text-warning' : 'text-muted' }}"></i>
-                    @endfor
-                    ({{ $totalReviews }} reviews)
-                </p>
-            </div>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <i class="fa fa-star {{ $i <= $avgRating ? 'text-warning' : 'text-muted' }}"></i>
+                        @endfor
+                        <strong class="ms-2">({{ $totalReviews }} reviews)</strong>
+                    </div>
+
+                    <!-- Right Side: Rating Progress Bars -->
+                    <div class="col-md-6">
+                        @php
+                            $totalReviews = $totalReviews > 0 ? $totalReviews : 1;
+                        @endphp
+
+                        @foreach ([5, 4, 3, 2, 1] as $star)
+                            @php
+                                $percentage = isset($ratings_count[$star]) && $totalReviews > 0 ? 
+                                              round(($ratings_count[$star] / $totalReviews) * 100) : 0;
+                            @endphp
+                            <div class="d-flex align-items-center mb-1">
+                                <span class="me-2">{{ $star }} <i class="fa fa-star text-warning"></i></span>
+                                <div class="progress flex-grow-1" style="height: 10px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" 
+                                         style="width: {{ $percentage }}%;" 
+                                         aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                </div>
+                                <span class="ms-2">{{ $percentage }}%</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
 
 
             <!-- Car Type -->

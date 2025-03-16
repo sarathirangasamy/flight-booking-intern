@@ -141,16 +141,20 @@ class ServiceController extends Controller
     }
 
 
-    public function showFlightDetails($id)
+        public function showFlightDetails($id)
     {
         $flight = Service::with(['ratings.user']) 
             ->withCount('ratings as total_reviews')
             ->withSum('ratings as total_rating', 'rating')
             ->findOrFail($id);
-    
-        return view('flight.show', compact('flight'));
+
+        $ratings_count = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $ratings_count[$i] = $flight->ratings()->where('rating', $i)->count();
+        }
+
+        return view('flight.show', compact('flight', 'ratings_count'));
     }
-    
 
 
     public function showHotelDetails($id)
@@ -160,8 +164,15 @@ class ServiceController extends Controller
             ->withSum('ratings as total_rating', 'rating')
             ->findOrFail($id);
     
-        return view('hotel.show', compact('hotel'));
+        // Calculate rating count for each star (1 to 5)
+        $ratings_count = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $ratings_count[$i] = $hotel->ratings()->where('rating', $i)->count();
+        }
+    
+        return view('hotel.show', compact('hotel', 'ratings_count'));
     }
+    
     
 
         public function showCarDetails($id)
@@ -171,7 +182,12 @@ class ServiceController extends Controller
             ->withSum('ratings as total_rating', 'rating')
             ->findOrFail($id);
 
-        return view('car.show', compact('car'));
+            $ratings_count = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $ratings_count[$i] = $car->ratings()->where('rating', $i)->count();
+        }
+
+        return view('car.show', compact('car','ratings_count'));
     }
 
 
