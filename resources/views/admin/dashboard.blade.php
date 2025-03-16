@@ -26,10 +26,19 @@
         </div>
 
         <div class="col-md-3">
-            <div class="card text-white bg-success mb-3">
+            <div class="card text-white bg-secondary mb-3">
                 <div class="card-body">
                     <h5 class="card-title">Confirmed Bookings</h5>
                     <p class="card-text fs-3">{{ $confirmedBookings }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Completed Bookings</h5>
+                    <p class="card-text fs-3">{{ $completedBookings }}</p>
                 </div>
             </div>
         </div>

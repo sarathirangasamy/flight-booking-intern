@@ -157,9 +157,10 @@ class AdminController extends Controller
     $userCount = User::where('role','=','user')->count();
     $pendingBookings = Booking::where('status', 'Pending')->count();
     $confirmedBookings = Booking::where('status', 'Confirmed')->count();
+    $completedBookings = Booking::where('status', 'Completed')->count();
     $cancelledBookings = Booking::where('status', 'Cancelled')->count();
 
-    return view('admin.dashboard', compact('userCount', 'pendingBookings', 'confirmedBookings', 'cancelledBookings'));
+    return view('admin.dashboard', compact('userCount', 'pendingBookings', 'confirmedBookings', 'cancelledBookings','completedBookings'));
 }
 
 
