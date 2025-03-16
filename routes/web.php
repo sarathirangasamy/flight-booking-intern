@@ -8,6 +8,7 @@ use App\Http\Controllers\RatingController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [BookingController::class, 'home'])->name('home');
@@ -40,6 +41,10 @@ Route::post('/admin/register', [RegisterController::class, 'registerAdmin']);
 
 //Rating
 Route::post('/rating/store', [RatingController::class, 'store'])->name('rating.store');
+
+//Location Name
+Route::resource('locations', LocationController::class);
+
 
 // Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
