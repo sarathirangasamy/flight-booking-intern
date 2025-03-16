@@ -32,14 +32,9 @@
 									<div class="form-group mb-0">
 										<select class="pickup form-control fw-bold">
 											<option value="">Select Pickup</option>
-											<option value="ny">New York</option>
-											<option value="sd">San Diego</option>
-											<option value="sj">San Jose</option>
-											<option value="ph">Philadelphia</option>
-											<option value="nl">Nashville</option>
-											<option value="sf">San Francisco</option>
-											<option value="hu">Houston</option>
-											<option value="sa">San Antonio</option>
+												@foreach($CarLocations as $location)
+													<option value="{{ $location->name }}">{{ $location->name }}</option>
+												@endforeach
 										</select>
 									</div>
 								</div>
@@ -49,14 +44,9 @@
 									<div class="form-group mb-0">
 										<select class="drop form-control fw-bold">
 											<option value="">Select Drop</option>
-											<option value="ny">New York</option>
-											<option value="sd">San Diego</option>
-											<option value="sj">San Jose</option>
-											<option value="ph">Philadelphia</option>
-											<option value="nl">Nashville</option>
-											<option value="sf">San Francisco</option>
-											<option value="hu">Houston</option>
-											<option value="sa">San Antonio</option>
+											@foreach($CarLocations as $location)
+												<option value="{{ $location->name }}">{{ $location->name }}</option>
+											@endforeach
 										</select>
 									</div>
 								</div>
@@ -448,14 +438,9 @@
                         <label for="pickup_location" class="form-label">Pickup Location</label>
                         <select class="form-control fw-bold" id="pickup_location" name="pickup_location" required>
                             <option value="">Select Pickup</option>
-                           <option value="ny">New York</option>
-                        <option value="sd">San Diego</option>
-                        <option value="sj">San Jose</option>
-                        <option value="ph">Philadelphia</option>
-                        <option value="nl">Nashville</option>
-                        <option value="sf">San Francisco</option>
-                        <option value="hu">Houston</option>
-                        <option value="sa">San Antonio</option>
+							@foreach($CarLocations as $location)
+								<option value="{{ $location->name }}">{{ $location->name }}</option>
+							@endforeach
                         </select>
                     </div>
 
@@ -464,14 +449,9 @@
                         <label for="drop_location" class="form-label">Drop Location</label>
                         <select class="form-control fw-bold" id="drop_location" name="drop_location" required>
                             <option value="">Select Drop</option>
-                           <option value="ny">New York</option>
-                        <option value="sd">San Diego</option>
-                        <option value="sj">San Jose</option>
-                        <option value="ph">Philadelphia</option>
-                        <option value="nl">Nashville</option>
-                        <option value="sf">San Francisco</option>
-                        <option value="hu">Houston</option>
-                        <option value="sa">San Antonio</option>
+							@foreach($CarLocations as $location)
+								<option value="{{ $location->name }}">{{ $location->name }}</option>
+							@endforeach
                         </select>
                     </div>
 

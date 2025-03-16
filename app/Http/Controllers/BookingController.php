@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use App\Models\Service;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -129,7 +130,7 @@ class BookingController extends Controller
 
     public function home()
     {
-        $flightsService = Service::where('type', '=', 'flight')
+        $data['flightsService'] = Service::where('type', '=', 'flight')
             ->with(['ratings' => function ($query) {
                 $query->select('service_id', 
                     DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
@@ -138,7 +139,9 @@ class BookingController extends Controller
             }])
             ->get();
         
-        return view('home', compact('flightsService'));
+        $data['FlightLocations'] = Location::where('type','=','flight')->get();
+
+        return view('home', $data);
     }
 
 
@@ -204,7 +207,7 @@ class BookingController extends Controller
 
     public function hotelPage()
     {
-        $hotelService = Service::where('type', '=', 'hotel')
+        $data['hotelService'] = Service::where('type', '=', 'hotel')
         ->with(['ratings' => function ($query) {
             $query->select('service_id', 
                 DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
@@ -212,7 +215,8 @@ class BookingController extends Controller
             )->groupBy('service_id');
         }])
         ->get();
-        return view('hotel', compact('hotelService'));
+        $data['HotelLocations'] = Location::where('type','=','hotel')->get();
+        return view('hotel', $data);
     }
 
 
@@ -253,13 +257,14 @@ class BookingController extends Controller
 
     public function carPage()
     {
-        $carServices = Service::where('type', '=', 'car_rental')->with(['ratings' => function ($query) {
+        $data['carServices'] = Service::where('type', '=', 'car_rental')->with(['ratings' => function ($query) {
             $query->select('service_id', 
                 DB::raw('COALESCE(SUM(rating), 0) as total_rating'),
                 DB::raw('COALESCE(COUNT(id), 0) as total_reviews')
             )->groupBy('service_id');
         }])->get();
-        return view('car', compact('carServices'));
+        $data['CarLocations'] = Location::where('type','=','car')->get();
+        return view('car', $data);
     }
 
     public function filterCars(Request $request)

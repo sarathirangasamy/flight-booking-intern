@@ -92,41 +92,33 @@
                             <div class="row gx-lg-2 g-3">
 
                                 <div class="col-xl-6 col-lg-6 col-md-12">
-                                <div class="row gy-3 gx-lg-2 gx-3">
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 position-relative">
-                                    <div class="form-group hdd-arrow mb-0">
-                                        <select class="leaving form-control fw-bold">
-                                        <option value="">Select</option>
-                                        <option value="ny">New York</option>
-                                        <option value="sd">San Diego</option>
-                                        <option value="sj">San Jose</option>
-                                        <option value="ph">Philadelphia</option>
-                                        <option value="nl">Nashville</option>
-                                        <option value="sf">San Francisco</option>
-                                        <option value="hu">Houston</option>
-                                        <option value="sa">San Antonio</option>
-                                        </select>
-                                    </div>
-                                    <div class="btn-flip-icon mt-md-0">
-                                        <button class="p-0 m-0 text-primary"><i class="fa-solid fa-right-left"></i></button>
-                                    </div>
-                                    </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-groupp hdd-arrow mb-0">
-                                        <select class="goingto form-control fw-bold">
-                                        <option value="">Select</option>
-                                        <option value="lv">Las Vegas</option>
-                                        <option value="la">Los Angeles</option>
-                                        <option value="kc">Kansas City</option>
-                                        <option value="no">New Orleans</option>
-                                        <option value="kc">Jacksonville</option>
-                                        <option value="lb">Long Beach</option>
-                                        <option value="cl">Columbus</option>
-                                        <option value="cn">Canada</option>
-                                        </select>
-                                    </div>
-                                    </div>
-                                </div>
+								<div class="row gy-3 gx-lg-2 gx-3">
+									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 position-relative">
+										<div class="form-group hdd-arrow mb-0">
+											<select class="leaving form-control fw-bold">
+												<option value="">Select</option>
+												@foreach($FlightLocations as $location)
+													<option value="{{ $location->name }}">{{ $location->name }}</option>
+												@endforeach
+											</select>
+										</div>
+										<div class="btn-flip-icon mt-md-0">
+											<button class="p-0 m-0 text-primary"><i class="fa-solid fa-right-left"></i></button>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+										<div class="form-group hdd-arrow mb-0">
+											<select class="goingto form-control fw-bold">
+												<option value="">Select</option>
+												@foreach($FlightLocations as $location)
+													<option value="{{ $location->name }}">{{ $location->name }}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+								</div>
+
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-12">
                                 <div class="row gy-3 gx-lg-2 gx-3">

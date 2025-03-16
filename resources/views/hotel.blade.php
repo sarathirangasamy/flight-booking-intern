@@ -35,16 +35,13 @@
 												<label>Where</label>
 												<select class="goingto form-control border-0">
 													<option value="">Select</option>
-													<option value="ny">New York</option>
-													<option value="sd">San Diego</option>
-													<option value="sj">San Jose</option>
-													<option value="ph">Philadelphia</option>
-													<option value="nl">Nashville</option>
-													<option value="sf">San Francisco</option>
-													<option value="hu">Houston</option>
-													<option value="sa">San Antonio</option>
+													@foreach($HotelLocations as $location)
+														<option value="{{ $location->name }}">{{ $location->name }}</option>
+													@endforeach
 												</select>
 											</div>
+
+
 										</div>
 										<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
 											<div class="form-group mb-0">
